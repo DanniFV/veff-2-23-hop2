@@ -1,7 +1,7 @@
 {
-  "name": "vef1-2022-v9-synilausn",
+  "name": "vef1-2023-hop2",
   "version": "1.0.0",
-  "description": "https://openlibrary.org/developers/api",
+  "description": "",
   "main": ".eslintrc.js",
   "scripts": {
     "dev": "browser-sync start --server --files **/*.js styles.css index.html",
