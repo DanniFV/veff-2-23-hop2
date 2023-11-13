@@ -1,0 +1,17 @@
+.boxes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 1vw;
+}
+
+.boxes .box {
+    border-style: solid;
+    text-align: center;
+    padding: 5vw;
+}
+
+.boxes .box a {
+    color: var(--color-black);
+    text-decoration: none;
+}
