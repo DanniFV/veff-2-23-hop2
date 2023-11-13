@@ -1,51 +1,17 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: black;
-}
+/* Error: Can't find stylesheet to import.
+ *   ,
+ * 3 | @import 'scss/wassup';
+ *   |         ^^^^^^^^^^^^^
+ *   '
+ *   styles.scss 3:9  root stylesheet */
 
-.header .navigation {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.index-title {
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
   display: block;
-  font-size: 3.5vw;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 3 \2502  @import 'scss/wassup';\a   \2502          ^^^^^^^^^^^^^\a   \2575 \a   styles.scss 3:9  root stylesheet";
 }
-
-.nav-right-index {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.nav-right-index ul a {
-  font-size: 2vw;
-}
-
-.nav-top-right-index {
-  display: flex;
-  flex-direction: row;
-  text-align: left;
-  padding-right: 2vw;
-  list-style: none;
-}
-
-.nav-bottom-right-index {
-  display: flex;
-  flex-direction: row;
-  text-align: left;
-  padding-right: 2vw;
-  list-style: none;
-}
-
-.header .navigation ul li a {
-  color: white;
-  padding-right: 1vw;
-  text-decoration: none;
-}
-
-/*# sourceMappingURL=styles.css.map */
