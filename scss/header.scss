@@ -1,9 +1,47 @@
 .header {
-    margin: 0;
-    padding: 0;
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
 }
 
 .header .navigation {
+    width: 100%;
     display: flex;
+    justify-content: space-between;
+}
+
+.index-title {
+    display: block;
+    font-size: 3.5vw;
+}
+
+.nav-right-index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-right-index ul a {
+    font-size: 2vw;
+}
+
+.nav-top-right-index {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    padding-right: 2vw;
+}
+
+.nav-bottom-right-index {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    padding-right: 2vw;
+}
+
+.header .navigation ul li a{
+    color: white;
+    padding-right: 1vw;
+    text-decoration: none;
 }
