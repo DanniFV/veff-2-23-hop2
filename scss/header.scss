@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: black;
+    background-color: var(--color-black);
 }
 
 .header .navigation {
@@ -40,8 +40,8 @@
     padding-right: 2vw;
 }
 
-.header .navigation ul li a{
-    color: white;
+.header .navigation ul li a {
+    color: var(--color-white);
     padding-right: 1vw;
     text-decoration: none;
 }
