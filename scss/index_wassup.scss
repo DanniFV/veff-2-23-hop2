@@ -2,6 +2,10 @@
     font-size: 2vw;
 }
 
+.nyjarvorur_title {
+    font-size: 3vw;
+}
+
 .boxes {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -11,6 +15,7 @@
 
 .boxes .box {
     border-style: solid;
+    border-width: 1px;
     text-align: center;
     padding: 5vw;
 }
@@ -19,4 +24,13 @@
     color: var(--color-black);
     text-decoration: none;
     font-size: 3vw;
+}
+
+.takki_forsida a {
+    padding: calc(var(--spacing)*0.5);
+    color: var(--color-white);
+    background-color: var(--color-black);
+    text-decoration: none;
+    text-align: center;
+    border-radius: 2px;
 }
