@@ -5,7 +5,9 @@ export function renderFrontpage(
     parentElement,
     query = undefined,
 ) {
-    const heading = el('h2', { class: "wassup" }, 'Skoðaðu vöruflokkana okkar');
+    const nyjarvorur = el('h1', { class: "nyjarvorur_title" }, 'Nýjar vörur');
+    const takki = el('p', { class: "takki_forsida" }, el('a', { href: '%' }, 'Skoða alla flokkana'));
+    const heading = el('h2', { class: "wassup" }, 'Skoðaðu vöruflokkana okkar')
     const boxes = el(
         'section',
         { class: 'boxes' },
@@ -23,7 +25,7 @@ export function renderFrontpage(
         el('div', { class: 'box' }, el('a', { href: '#' }, 'Tools'))
     );
 
-    const container = el('main', {}, heading, boxes);
+    const container = el('main', {}, nyjarvorur, takki, heading, boxes);
     parentElement.appendChild(container);
 
     if (!query) {
