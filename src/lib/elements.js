@@ -12,6 +12,12 @@ export function el(name, attributes = {}, ...children) {
   }
 
   for (const child of children) {
+    if (!child) {
+      console.warn('Child is null', name, attributes);
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+
     if (typeof child === 'string' || typeof child === 'number') {
       e.appendChild(document.createTextNode(child.toString()));
     } else {

@@ -1,3 +1,6 @@
+import { empty } from './lib/elements.js';
+import { renderFrontpage } from './lib/ui.js';
+
 /**
 * Athugar hvaða síðu við erum á út frá query - string og birtir.
 * Ef`id` er gefið þá er það birt, annars er forsíða birt með
@@ -16,7 +19,7 @@ function route() {
     if (id) {
         renderDetails(parentElement, id);
     } else {
-        renderFrontpage(parentElement, onSearch, query);
+        renderFrontpage(parentElement, query);
     }
 }
 // Bregst við því þegar við notum vafra til að fara til baka eða áfram.

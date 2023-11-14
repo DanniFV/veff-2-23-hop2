@@ -3,6 +3,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: var(--color-black);
+    margin-bottom: 2vw;
 }
 
 .header .navigation {
@@ -24,6 +25,7 @@
 
 .nav-right-index ul a {
     font-size: 2vw;
+    text-decoration: none;
 }
 
 .nav-top-right-index {
@@ -31,6 +33,7 @@
     flex-direction: row;
     text-align: left;
     padding-right: 2vw;
+    list-style: none;
 }
 
 .nav-bottom-right-index {
@@ -38,6 +41,7 @@
     flex-direction: row;
     text-align: left;
     padding-right: 2vw;
+    list-style: none;
 }
 
 .header .navigation ul li a {
