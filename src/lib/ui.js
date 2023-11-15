@@ -6,18 +6,18 @@ export async function renderFrontpage(
     parentElement,
     query = undefined,
 ) {
-    let List = el('ul')
-    const bla = await searchProducts(query)
-    console.log(bla);
-    for (const hlutur of bla) {
+    let List = el('section', { class: 'kassar' })
+    const searchResults = await searchProducts(query)
+    console.log(searchResults);
+    for (const hlutur of searchResults) {
         console.log(hlutur.price)
         const resultEl = el(
             'div',
-            { class: 'result' },
+            { class: 'kassi' },
             el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
             el('p', { class: 'result__title' }, ` ${hlutur.title}`),
-            el('p', { class: 'result__catagory' }, ` ${hlutur.category_title}`),
-            el('p', { class: 'result__price' }, ` ${hlutur.price}`),
+            el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
+            el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
         );
         List.appendChild(resultEl);
         console.log(resultEl);
@@ -26,7 +26,7 @@ export async function renderFrontpage(
     const nyjarvorur = el('h1', { class: "nyjarvorur_title" }, 'Nýjar vörur');
     const takki = el('p', { class: "takki_forsida" }, el('a', { href: '%' }, 'Skoða alla flokkana'));
     const heading = el('h2', { class: "wassup" }, 'Skoðaðu vöruflokkana okkar')
-    const boxes = el(
+    const categoryBoxes = el(
         'section',
         { class: 'boxes' },
         el('div', { class: 'box' }, el('a', { href: '#' }, 'Clothing')),
@@ -43,12 +43,12 @@ export async function renderFrontpage(
         el('div', { class: 'box' }, el('a', { href: '#' }, 'Tools'))
     );
 
-    const container = el('main', {}, nyjarvorur, takki, heading, boxes);
-    parentElement.appendChild(boxes);
+    const container = el('main', {}, nyjarvorur, takki, heading, categoryBoxes);
+    parentElement.appendChild(categoryBoxes);
 
     if (!query) {
         return;
     }
 
-    searchAndRender(parentElement, boxes, query);
+    searchAndRender(parentElement, categoryBoxes, query);
 }

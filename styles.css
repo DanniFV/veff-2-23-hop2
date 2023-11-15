@@ -20,6 +20,13 @@
   font-size: 2vw;
 }
 
+img {
+  width: 100%;
+  overflow: hidden;
+  object-fit: cover;
+  max-height: 300px;
+}
+
 .nyjarvorur_title {
   font-size: 3vw;
 }
@@ -28,20 +35,27 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  gap: 1vw;
+  gap: var(--spacing);
 }
 
 .boxes .box {
-  border-style: solid;
-  border-width: 1px;
+  border: 1px solid;
   text-align: center;
   padding: 5vw;
 }
 
-.boxes .box a {
+.boxes .box a,
+.kassar .kassi a {
   color: var(--color-black);
   text-decoration: none;
   font-size: 3vw;
+}
+
+.kassar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  gap: var(--spacing);
 }
 
 .takki_forsida a {
