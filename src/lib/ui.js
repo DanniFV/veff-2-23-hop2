@@ -1,6 +1,43 @@
-import { searchProducts } from './api.js';
+import { getVoru, searchProducts } from './api.js';
 import { el } from './elements.js';
 
+//Loading
+function setLoading(parentElement, searchForm = undefined) {
+    let loadingElement = parentElement.querySelector('.loading');
+
+    if (!loadingElement) {
+        loadingElement = el('div', { class: 'loading' }, 'Sæki gögn...');
+        parentElement.appendChild(loadingElement);
+    }
+
+    if (!searchForm) {
+        return;
+    }
+
+    const button = searchForm.querySelector('button');
+
+    if (button) {
+        button.setAttribute('disabled', 'disabled');
+    }
+}
+//Not loading
+function setNotLoading(parentElement, searchForm = undefined) {
+    const loadingElement = parentElement.querySelector('.loading');
+
+    if (loadingElement) {
+        loadingElement.remove();
+    }
+
+    if (!searchForm) {
+        return;
+    }
+
+    const disabledButton = searchForm.querySelector('button[disabled]');
+
+    if (disabledButton) {
+        disabledButton.removeAttribute('disabled');
+    }
+}
 
 export async function renderFrontpage(
     parentElement,
