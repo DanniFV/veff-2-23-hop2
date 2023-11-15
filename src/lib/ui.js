@@ -7,9 +7,9 @@ export async function renderFrontpage(
     query = undefined,
 ) {
     let List = el('ul')
-    const bla = await searchProducts(query)
-    console.log(bla);
-    for (const hlutur of bla) {
+    const searchResults = await searchProducts(query)
+    console.log(searchResults);
+    for (const hlutur of searchResults) {
         console.log(hlutur.price)
         const resultEl = el(
             'div',
