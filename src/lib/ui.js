@@ -6,7 +6,7 @@ export async function renderFrontpage(
     parentElement,
     query = undefined,
 ) {
-    let List = [];
+    let List = el('ul')
     const bla = await searchProducts(query)
     console.log(bla);
     for (const hlutur of bla) {
@@ -19,10 +19,9 @@ export async function renderFrontpage(
             el('p', { class: 'result__catagory' }, ` ${hlutur.category_title}`),
             el('p', { class: 'result__price' }, ` ${hlutur.price}`),
         );
-        List.push(resultEl);
+        List.appendChild(resultEl);
         console.log(resultEl);
-        const container = el('main', {}, resultEl);
-        parentElement.appendChild(container);
+        parentElement.appendChild(List);
     }
     const nyjarvorur = el('h1', { class: "nyjarvorur_title" }, 'Nýjar vörur');
     const takki = el('p', { class: "takki_forsida" }, el('a', { href: '%' }, 'Skoða alla flokkana'));
@@ -45,7 +44,7 @@ export async function renderFrontpage(
     );
 
     const container = el('main', {}, nyjarvorur, takki, heading, boxes);
-    parentElement.appendChild(container);
+    parentElement.appendChild(boxes);
 
     if (!query) {
         return;
