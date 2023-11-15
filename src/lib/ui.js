@@ -1,10 +1,29 @@
+import { searchProducts } from './api.js';
 import { el } from './elements.js';
 
 
-export function renderFrontpage(
+export async function renderFrontpage(
     parentElement,
     query = undefined,
 ) {
+    let List = [];
+    const bla = await searchProducts(query)
+    console.log(bla);
+    for (const hlutur of bla) {
+        console.log(hlutur.price)
+        const resultEl = el(
+            'div',
+            { class: 'result' },
+            el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
+            el('p', { class: 'result__title' }, ` ${hlutur.title}`),
+            el('p', { class: 'result__catagory' }, ` ${hlutur.category_title}`),
+            el('p', { class: 'result__price' }, ` ${hlutur.price}`),
+        );
+        List.push(resultEl);
+        console.log(resultEl);
+        const container = el('main', {}, resultEl);
+        parentElement.appendChild(container);
+    }
     const nyjarvorur = el('h1', { class: "nyjarvorur_title" }, 'Nýjar vörur');
     const takki = el('p', { class: "takki_forsida" }, el('a', { href: '%' }, 'Skoða alla flokkana'));
     const heading = el('h2', { class: "wassup" }, 'Skoðaðu vöruflokkana okkar')
