@@ -16,7 +16,7 @@ export async function renderFrontpage(
             { class: 'result' },
             el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
             el('p', { class: 'result__title' }, ` ${hlutur.title}`),
-            el('p', { class: 'result__catagory' }, ` ${hlutur.category_title}`),
+            el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
             el('p', { class: 'result__price' }, ` ${hlutur.price}`),
         );
         List.appendChild(resultEl);
