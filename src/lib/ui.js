@@ -39,12 +39,13 @@ function setNotLoading(parentElement, searchForm = undefined) {
     }
 }
 
+//Allt sem að tengist forsíðunni
 export async function renderFrontpage(
     parentElement,
     query = undefined,
 ) {
     let List = el('section', { class: 'kassar' })
-    const searchResults = await searchProducts(query)
+    const searchResults = await searchProducts(query, 6)
     console.log(searchResults);
     for (const hlutur of searchResults) {
         console.log(hlutur.price)

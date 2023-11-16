@@ -56,6 +56,7 @@ img {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto;
   gap: var(--spacing);
+  margin-bottom: 200 px;
 }
 
 .takki_forsida a {

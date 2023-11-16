@@ -2,10 +2,10 @@
 const API_URL = 'https://vef1-2023-h2-api-791d754dda5b.herokuapp.com/';
 
 //Leita í API eftir id
-export async function searchProducts(query) {
+export async function searchProducts(query, limit = 10) {
     const url = new URL('products', API_URL);
     url.searchParams.set('items', query);
-    url.searchParams.set('limit', '6');
+    url.searchParams.set('limit', limit);
 
     let response;
     try {
