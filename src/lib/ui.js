@@ -39,13 +39,21 @@ function setNotLoading(parentElement, searchForm = undefined) {
     }
 }
 
+// Allt sem að tengist forsíðunni
+
 export async function renderFrontpage(
     parentElement,
     query = undefined,
 ) {
     let List = el('section', { class: 'kassar' })
-    const searchResults = await searchProducts(query)
-    console.log(searchResults);
+    const searchResults = await searchProducts(query, 6)
+
+    const nyjarvorur = el('h1', { class: "nyjarvorur_title" }, 'Nýjar vörur');
+    const heading = el('h2', { class: "wassup" }, 'Skoðaðu vöruflokkana okkar');
+    const takki = el('p', { class: "takki_forsida" }, el('a', { href: '%' }, 'Skoða alla flokkana'));
+
+    parentElement.appendChild(nyjarvorur);
+
     for (const hlutur of searchResults) {
         console.log(hlutur.price)
         const resultEl = el(
@@ -60,9 +68,10 @@ export async function renderFrontpage(
         console.log(resultEl);
         parentElement.appendChild(List);
     }
-    const nyjarvorur = el('h1', { class: "nyjarvorur_title" }, 'Nýjar vörur');
-    const takki = el('p', { class: "takki_forsida" }, el('a', { href: '%' }, 'Skoða alla flokkana'));
-    const heading = el('h2', { class: "wassup" }, 'Skoðaðu vöruflokkana okkar')
+
+    parentElement.appendChild(heading);
+    parentElement.appendChild(takki);
+
     const categoryBoxes = el(
         'section',
         { class: 'boxes' },
@@ -80,12 +89,10 @@ export async function renderFrontpage(
         el('div', { class: 'box' }, el('a', { href: '#' }, 'Tools'))
     );
 
-    const container = el('main', {}, nyjarvorur, takki, heading, categoryBoxes);
-    parentElement.appendChild(categoryBoxes);
+    const container = el('main', {}, nyjarvorur, List, takki, heading, categoryBoxes);
+    parentElement.appendChild(container);
 
     if (!query) {
         return;
     }
-
-    searchAndRender(parentElement, categoryBoxes, query);
 }
