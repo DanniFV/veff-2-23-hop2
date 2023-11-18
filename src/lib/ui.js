@@ -1,7 +1,7 @@
 import { getVoru, searchProducts } from './api.js';
 import { el } from './elements.js';
 
-//Leitarformið sem á að nota á category síðunum
+// Leitarformið sem á að nota á category síðunum
 export function renderSearchForm(searchHandler, query = undefined) {
     const search = el('input', {
         type: 'search',
@@ -15,7 +15,7 @@ export function renderSearchForm(searchHandler, query = undefined) {
     return container;
 }
 
-//Loading
+// Loading
 function setLoading(parentElement, searchForm = undefined) {
     let loadingElement = parentElement.querySelector('.loading');
 
@@ -34,7 +34,7 @@ function setLoading(parentElement, searchForm = undefined) {
         button.setAttribute('disabled', 'disabled');
     }
 }
-//Not loading
+// Not loading
 function setNotLoading(parentElement, searchForm = undefined) {
     const loadingElement = parentElement.querySelector('.loading');
 
@@ -59,13 +59,15 @@ export async function renderFrontpage(
     parentElement,
     query = undefined,
 ) {
-    let List = el('section', { class: 'kassar' })
+    const List = el('section', { class: 'kassar' })
     const searchResults = await searchProducts(query, 6)
 
-    const nyjarvorur = el('h1', { class: "nyjarvorur_title" }, 'Nýjar vörur');
-    const heading = el('h2', { class: "skoda_voruflokka" }, 'Skoðaðu vöruflokkana okkar');
-    const takki = el('p', { class: "takki_forsida" }, el('a', { href: '%' }, 'Skoða alla flokkana'));
+    const nyjarvorur = el('h1', { class: 'nyjarvorur_title' }, 'Nýjar vörur');
+    const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
+    const takki = el('p', { class: 'takki_forsida' }, el('a', { href: '%' },
+        'Skoða alla flokkana'));
     takki.addEventListener('click', function () {
+        getVoru();
     });
     parentElement.appendChild(nyjarvorur);
 

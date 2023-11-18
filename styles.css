@@ -24,6 +24,7 @@
 main {
   margin-left: var(--spacing);
   margin-right: var(--spacing);
+  background-color: aqua;
 }
 
 img {

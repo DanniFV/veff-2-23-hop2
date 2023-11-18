@@ -34,8 +34,8 @@ export async function searchProducts(query, limit = 10) {
     return results;
 }
 //Kristín að fikta
-export async function getVoru(id) {
-    const url = new URL(`products/${id}`, API_URL);
+export async function getVoru(items) {
+    const url = new URL(`products/${items}`, API_URL);
 
     let response;
     try {
