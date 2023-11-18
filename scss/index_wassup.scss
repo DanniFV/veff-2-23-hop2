@@ -1,16 +1,18 @@
-.wassup {
-    font-size: 2vw;
+.skoda_voruflokka {
+    font-size: 1rem;
 }
 
 img {
     width: 100%;
     overflow: hidden;
     object-fit: cover;
+    object-position: center center;
     max-height: 300px;
+    min-height: 200px;
 }
 
 .nyjarvorur_title {
-    font-size: 3vw;
+    font-size: 1.5rem;
 }
 
 .boxes {
@@ -30,7 +32,7 @@ img {
 .kassar .kassi a {
     color: var(--color-black);
     text-decoration: none;
-    font-size: 3vw;
+    font-size: 3rem;
 }
 
 .kassar {
@@ -38,6 +40,27 @@ img {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto;
     gap: var(--spacing);
+}
+
+@media (max-width: 900px) {
+
+    .kassar,
+    .boxes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+
+    .kassar,
+    .boxes {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    main {
+        margin-left: var(--spacing);
+        margin-right: var(--spacing);
+    }
 }
 
 .takki_forsida a {
