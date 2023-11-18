@@ -70,22 +70,25 @@ export async function renderFrontpage(
     parentElement.appendChild(nyjarvorur);
 
     for (const hlutur of searchResults) {
-        console.log(hlutur.price)
+        console.log(hlutur.price);
         const resultEl = el(
             'div',
             { class: 'kassi' },
             el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
-            el('p', { class: 'result__title' }, ` ${hlutur.title}`),
-            el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
-            el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
+            el('div', { class: 'result__textar' },
+                el('p', { class: 'result__title' }, ` ${hlutur.title}`),
+                el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
+                el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
+            )
         );
         List.appendChild(resultEl);
         console.log(resultEl);
-        parentElement.appendChild(List);
     }
 
     parentElement.appendChild(heading);
     parentElement.appendChild(takki);
+    parentElement.appendChild(List);
+
 
     const categoryBoxes = el(
         'section',
