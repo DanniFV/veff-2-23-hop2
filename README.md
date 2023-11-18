@@ -2,14 +2,19 @@
 
 ## Þáttakendur
 ### Daniel Frans Valdimarsson, @DanniFV
+### 'hi: dfv1@hi.is
 ### Kristín Fríða Sigurborgardóttir, @KristinFrida
+### hi: kfs14@hi.is
 
 ## Hvernig á að keyra verkefnið
   - `npm run dev`
   - `npm run lint` skal vera til staðar og keyra eslint og stylelint
 
-##Létt lýsing á uppsetningu verkefnis
+## Létt lýsing á uppsetningu verkefnis
 - , hvernig því er skipt í möppur, hvernig CSS/Sass er skipulagt og fleira sem á við
+
+- Verkefnið inniheldur `package.json` og `package-lock.json` sem innihalda öll notuð tól.
+
 
 ## Verkefnalýsing
 
@@ -88,24 +93,6 @@ Sjást ætti á _commit history_ að allir meðlimir hóps hafi tekið þátt í
 
 Útbúa þarf a.m.k. fimm Pull Request (PR) þar sem búið er að fara yfir af öðrum meðlim í hóp og yfirferð ásamt gagnrýni sést á GitHub.
 
-## Lýsing á verkefni
-
-`README.md` skrá skal vera í rót verkefnis og innihalda:
-
-- Upplýsingar um alla sem unnu verkefni, nöfn, HÍ notendanöfn og GitHub notendanöfn
-
-## Tæki og tól
-
-Verkefnið skal innihalda `package.json` og `package-lock.json` sem innihalda öll notuð tól.
-
-Þegar verkefnið er sótt verður `npm install` keyrt á undan öllum öðrum skipunum.
-
-Setja skal upp Sass og stylelint með `stylelint-config-sass-guidelines` og `stylelint-config-standard` fyrir verkefnið.
-
-Setja skal upp eslint með airbnb staðli.
-
-Leyfilegt er að nota öll tól sem við höfum notað í haust.
-
 ## Hýsing
 
 Setja skal verkefnið upp á Netlify, tengt GitHub.
@@ -143,7 +130,4 @@ Skil skulu innihalda:
   - `sturla-freyr`
 
 ## Einkunn
-
-Sett verða fyrir tíu minni verkefni þar sem átta bestu gilda 5% hvert, samtals 40% af lokaeinkunn.
-
-Sett verða fyrir tvö hópverkefni þar sem hvort um sig gildir 10%, samtals 20% af lokaeinkunn.
+Gildir 10%
