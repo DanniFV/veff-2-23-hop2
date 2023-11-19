@@ -2,7 +2,7 @@
 
 ## Þáttakendur
 ### Daniel Frans Valdimarsson, @DanniFV
-### 'hi: dfv1@hi.is
+### hi: dfv1@hi.is
 ### Kristín Fríða Sigurborgardóttir, @KristinFrida
 ### hi: kfs14@hi.is
 
