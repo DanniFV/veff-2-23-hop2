@@ -1,5 +1,5 @@
 import { empty } from './lib/elements.js';
-import { renderFrontpage } from './lib/ui.js';
+import { renderDetails, renderFrontpage } from './lib/ui.js';
 
 /**
 * Athugar hvaða síðu við erum á út frá query - string og birtir.
