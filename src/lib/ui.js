@@ -1,12 +1,12 @@
 import { getVoru, searchProducts } from './api.js';
 import { el } from './elements.js';
 
-// Leitarformið sem á að nota á category síðunum
-export function renderSearchForm(searchHandler, query = undefined) {
+// Render the search form used on category pages
+export function renderSearchForm(searchHandler, query = '') {
     const search = el('input', {
         type: 'search',
         placeholder: 'Leitarorð',
-        value: query ?? '',
+        value: query,
     });
     const button = el('button', {}, 'Leita');
 
@@ -15,7 +15,7 @@ export function renderSearchForm(searchHandler, query = undefined) {
     return container;
 }
 
-// Loading
+// Set loading state
 function setLoading(parentElement, searchForm = undefined) {
     let loadingElement = parentElement.querySelector('.loading');
 
@@ -34,7 +34,8 @@ function setLoading(parentElement, searchForm = undefined) {
         button.setAttribute('disabled', 'disabled');
     }
 }
-// Not loading
+
+// Set not loading state
 function setNotLoading(parentElement, searchForm = undefined) {
     const loadingElement = parentElement.querySelector('.loading');
 
@@ -53,26 +54,16 @@ function setNotLoading(parentElement, searchForm = undefined) {
     }
 }
 
-// Allt sem að tengist forsíðunni
+// Render frontpage content
+export async function renderFrontpage(parentElement, query = '') {
+    const List = el('section', { class: 'kassar' });
+    const searchResults = await searchProducts(query, 6);
 
-export async function renderFrontpage(
-    parentElement,
-    query = undefined,
-) {
-    const List = el('section', { class: 'kassar' })
-    const searchResults = await searchProducts(query, 6)
-
+    // Render new products section
     const nyjarvorur = el('h1', { class: 'nyjarvorur_title' }, 'Nýjar vörur');
-    const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
-    const takki = el('p', { class: 'takki_forsida' }, el('a', { href: '%' },
-        'Skoða alla flokkana'));
-    takki.addEventListener('click', function () {
-        getVoru();
-    });
     parentElement.appendChild(nyjarvorur);
 
     for (const hlutur of searchResults) {
-        console.log(hlutur.price);
         const resultEl = el(
             'div',
             { class: 'kassi' },
@@ -84,15 +75,60 @@ export async function renderFrontpage(
             )
         );
         List.appendChild(resultEl);
-        console.log(resultEl);
     }
+
+    parentElement.appendChild(List);
+
+    // Render category section
+    const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
+    const takki = el('p', { class: 'takki_forsida' }, el('a', { href: '%' }, 'Skoða alla flokkana'));
+    takki.addEventListener('click', getVoru);
 
     parentElement.appendChild(heading);
     parentElement.appendChild(takki);
-    parentElement.appendChild(List);
 
+    const categoryBoxes = renderCategoryBoxes();
+    const container = el('main', {}, nyjarvorur, List, takki, heading, categoryBoxes);
+    parentElement.appendChild(container);
+}
 
-    const categoryBoxes = el(
+// Render category content page
+export async function renderCategory(parentElement, query = '') {
+    const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
+    const categoryBoxes = renderCategoryBoxes();
+
+    const container = el('main', {}, heading, categoryBoxes);
+    parentElement.appendChild(container);
+}
+
+// Render category page 2 content
+export async function renderCategoryPage2(parentElement, query = '') {
+    const heading = el('h2', { class: 'Titill_voruflokk' }, ` ${hlutur.category_title}`);
+    const leitasida2 = renderSearchForm();
+    const List = el('section', { class: 'kassar' });
+    const searchResults = await searchProducts(query, 6);
+    for (const hlutur of searchResults) {
+        const resultEl = el(
+            'div',
+            { class: 'kassi' },
+            el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
+            el('div', { class: 'result__textar' },
+                el('p', { class: 'result__title' }, ` ${hlutur.title}`),
+                el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
+                el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
+            )
+        );
+        List.appendChild(resultEl);
+    }
+
+    const categoryBoxes = renderCategoryBoxes();
+    const container = el('main', {}, heading, leitasida2, categoryBoxes, List);
+    parentElement.appendChild(container);
+}
+
+// Helper function to render category boxes
+function renderCategoryBoxes() {
+    return el(
         'section',
         { class: 'boxes' },
         el('div', { class: 'box' }, el('a', { href: '#' }, 'Clothing')),
@@ -108,11 +144,65 @@ export async function renderFrontpage(
         el('div', { class: 'box' }, el('a', { href: '#' }, 'Sports')),
         el('div', { class: 'box' }, el('a', { href: '#' }, 'Tools'))
     );
+}
 
-    const container = el('main', {}, nyjarvorur, List, takki, heading, categoryBoxes);
+
+// renderDetails á að búa til síðu fyrir sérstaka vöru
+
+
+export async function renderDetails(parentElement, id) {
+    const container = el('main', {});
     parentElement.appendChild(container);
 
-    if (!query) {
+    setLoading(container);
+    const result = await getVoru(id);
+    setNotLoading(container);
+
+    // Check for error in fetching data
+    if (!result) {
+        container.appendChild(el('p', {}, 'Villa við að sækja gögn um geimskot!'));
         return;
     }
+
+    const hlutur = result; // Assuming result is the data structure you want to work with
+
+    // Render main details
+    const voruElement = el(
+        'article',
+        { class: 'vara' },
+        el(
+            'section',
+            { class: 'info' },
+            el('h1', {}, hlutur.title),
+            el(
+                'div',
+                { class: 'info' },
+                el('h2', {}, `${hlutur.title}`),
+                el('p', {}, `Flokkur: ${hlutur.category_title}`),
+                el('p', {}, hlutur.status.description),
+            ),
+        ),
+        el('div', { class: 'image' }, el('img', { src: hlutur.image, alt: hlutur.title })),
+    );
+
+    // Render related products
+    const meiraVorur = el('h2', {}, `Meira úr ${hlutur.title}`);
+    const List = el('section', { class: 'kassar' });
+    const searchResults = await searchProducts(query, 6);
+
+    for (const hlutur of searchResults) {
+        const resultEl = el(
+            'div',
+            { class: 'kassi' },
+            el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
+            el('div', { class: 'result__textar' },
+                el('p', { class: 'result__title' }, ` ${hlutur.title}`),
+                el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
+                el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
+            )
+        );
+        List.appendChild(resultEl);
+    }
+
+    container.appendChild(meiraVorur, voruElement, List);
 }
