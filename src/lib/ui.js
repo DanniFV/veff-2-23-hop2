@@ -83,6 +83,7 @@ export async function renderFrontpage(parentElement, query = '') {
     const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
     const takki = el('p', { class: 'takki_forsida' }, el('a', { href: '%' }, 'Skoða alla flokkana'));
     takki.addEventListener('click', getVoru);
+    // Ég skil ekki hvað ég þarf að gera hér til að fá þennan takka til að virka....
 
     parentElement.appendChild(heading);
     parentElement.appendChild(takki);
