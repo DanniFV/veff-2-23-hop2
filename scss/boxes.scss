@@ -66,6 +66,11 @@ img {
     gap: var(--spacing);
 }
 
+.kassar .kassi img {
+    height: 30vw;
+    object-fit: conver;
+}
+
 .kassar .kassi .result__textar {
     display: grid;
     grid-template-columns: auto max-content;
