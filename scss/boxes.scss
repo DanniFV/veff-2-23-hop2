@@ -66,6 +66,34 @@ img {
     gap: var(--spacing);
 }
 
+.kassar .kassi .result__textar {
+    display: grid;
+    grid-template-columns: auto max-content;
+    align-items: center;
+}
+
+.kassar .kassi .result__textar .result__title {}
+
+.kassar .kassi .result__textar .result__title,
+.kassar .kassi .result__textar .result__category {
+    grid-column: 1;
+    align-self: flex-start;
+    justify-self: start;
+    padding: 0;
+    margin: 0;
+
+}
+
+
+
+.kassar .kassi .result__textar .result__price {
+    grid-column: 2;
+    font-size: larger;
+    margin-bottom: initial;
+}
+
+
+
 @media (max-width: 900px) {
 
     .kassar,

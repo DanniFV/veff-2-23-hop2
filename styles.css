@@ -17,85 +17,6 @@
   --vertical-space: calc(var(--gutter));
 }
 
-.skoda_voruflokka {
-  font-size: 1.5rem;
-}
-
-main {
-  margin-left: var(--spacing);
-  margin-right: var(--spacing);
-}
-
-img {
-  width: 100%;
-  overflow: hidden;
-  object-fit: cover;
-  object-position: center center;
-  max-height: 300px;
-  min-height: 200px;
-}
-
-.nyjarvorur_title {
-  font-size: 1.5rem;
-}
-
-.boxes {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: var(--spacing);
-}
-
-.boxes .box {
-  border: 1px solid;
-  text-align: center;
-  padding: 5vw;
-}
-
-.boxes .box a,
-.kassar .kassi a {
-  color: var(--color-black);
-  text-decoration: none;
-  font-size: 3rem;
-}
-
-.kassar {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto;
-  gap: var(--spacing);
-}
-
-@media (max-width: 900px) {
-  .kassar,
-  .boxes {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (max-width: 501px) {
-  .header .navigation {
-    flex-direction: column;
-  }
-  .index-title {
-    text-align: center;
-  }
-  .kassar,
-  .boxes {
-    grid-template-columns: repeat(1, 1fr);
-  }
-  .result_textar {
-    display: flex;
-  }
-}
-.takki_forsida a {
-  padding: calc(var(--spacing) * 0.5);
-  color: var(--color-white);
-  background-color: var(--color-black);
-  text-decoration: none;
-  text-align: center;
-  border-radius: 2px;
-}
-
 .header {
   display: flex;
   justify-content: space-between;
@@ -149,7 +70,7 @@ img {
   text-decoration: none;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 500px) {
   .header {
     text-align: center;
   }
@@ -176,6 +97,124 @@ img {
   .nav-top-right-index li:nth-child(3) {
     display: block;
   }
+}
+.boxes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 1vw;
+}
+
+.boxes .box {
+  border-style: solid;
+  text-align: center;
+  padding: 5vw;
+}
+
+.boxes .box a {
+  color: var(--color-black);
+  text-decoration: none;
+  font-size: 3vw;
+}
+
+.skoda_voruflokka {
+  font-size: 1.5rem;
+}
+
+main {
+  margin-left: var(--spacing);
+  margin-right: var(--spacing);
+}
+
+img {
+  width: 100%;
+  overflow: hidden;
+  object-fit: cover;
+  object-position: center center;
+  max-height: 300px;
+  min-height: 200px;
+}
+
+.nyjarvorur_title {
+  font-size: 1.5rem;
+}
+
+.boxes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: var(--spacing);
+}
+
+.boxes .box {
+  border: 1px solid;
+  text-align: center;
+  padding: 5vw;
+}
+
+.boxes .box a,
+.kassar .kassi a {
+  color: var(--color-black);
+  text-decoration: none;
+  font-size: 3rem;
+}
+
+.kassar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  gap: var(--spacing);
+}
+
+.kassar .kassi .result__textar {
+  display: grid;
+  grid-template-columns: auto max-content;
+  align-items: center;
+}
+
+.kassar .kassi .result__textar .result__title,
+.kassar .kassi .result__textar .result__category {
+  grid-column: 1;
+  align-self: flex-start;
+  justify-self: start;
+  padding: 0;
+  margin: 0;
+}
+
+.kassar .kassi .result__textar .result__price {
+  grid-column: 2;
+  font-size: larger;
+  margin-bottom: initial;
+}
+
+@media (max-width: 900px) {
+  .kassar,
+  .boxes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 501px) {
+  .header .navigation {
+    flex-direction: column;
+  }
+  .index-title {
+    text-align: center;
+  }
+  .kassar,
+  .boxes {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .result_textar {
+    display: flex;
+  }
+}
+.takki_forsida a {
+  padding: calc(var(--spacing) * 0.5);
+  color: var(--color-white);
+  background-color: var(--color-black);
+  text-decoration: none;
+  text-align: center;
+  border-radius: 2px;
 }
 
 /*# sourceMappingURL=styles.css.map */

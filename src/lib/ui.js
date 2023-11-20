@@ -70,8 +70,8 @@ export async function renderFrontpage(parentElement, query = '') {
             el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
             el('div', { class: 'result__textar' },
                 el('p', { class: 'result__title' }, ` ${hlutur.title}`),
-                el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
                 el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
+                el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
             )
         );
         List.appendChild(resultEl);
@@ -115,9 +115,10 @@ export async function renderCategoryPage2(parentElement, query = '') {
             el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
             el('div', { class: 'result__textar' },
                 el('p', { class: 'result__title' }, ` ${hlutur.title}`),
-                el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
                 el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
-            )
+                el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
+
+            ),
         );
         List.appendChild(resultEl);
     }
@@ -200,8 +201,8 @@ export async function renderDetails(parentElement, id) {
             el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
             el('div', { class: 'result__textar' },
                 el('p', { class: 'result__title' }, ` ${hlutur.title}`),
-                el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
                 el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
+                el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
             )
         );
         List.appendChild(resultEl);
