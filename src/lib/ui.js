@@ -1,4 +1,4 @@
-import { getVoru, searchProducts } from './api.js';
+import { fetchCategories, getVoru, searchProducts } from './api.js';
 import { el } from './elements.js';
 
 // Render the search form used on category pages
@@ -51,6 +51,40 @@ function setNotLoading(parentElement, searchForm = undefined) {
 
     if (disabledButton) {
         disabledButton.removeAttribute('disabled');
+    }
+}
+export async function searchAndRender(parentElement, searchForm, query) {
+    const mainElement = parentElement.querySelector('main');
+
+    if (!mainElement) {
+        console.warn('fann ekki <main> element');
+        return;
+    }
+
+    // Fjarlægja fyrri niðurstöður
+    const resultsElement = mainElement.querySelector('.results');
+    if (resultsElement) {
+        resultsElement.remove();
+    }
+
+    setLoading(mainElement, searchForm);
+    try {
+        console.log(query);
+        const results = await searchProducts(query);
+
+        console.log('Search Results: ', results);
+        setNotLoading(mainElement, searchForm);
+
+        if (!results) {
+            console.error('Error fetching search results: Results are undefined.');
+            return null;
+        }
+
+        return results;
+    } catch (error) {
+        console.error('Error fetching search results: ', error);
+        setNotLoading(mainElement, searchForm);
+        return null;
     }
 }
 
@@ -128,27 +162,43 @@ export async function renderCategoryPage2(parentElement, query = '') {
 }
 
 // Helper function to render category boxes
-function renderCategoryBoxes() {
-    return el(
-        'section',
-        { class: 'boxes' },
-        el('div', { class: 'box' }, el('a', { href: '?category=' + category.id }, category.title)),
+//function renderCategoryBoxes() {
+//    return el(
+//        'section',
+//        { class: 'boxes' },
+//        el('div', { class: 'box' }, el('a', { href: '?category=' + category.id }, category.title)),
 
 
-        el('div', { class: 'box' }, el('a', { href: '#' }, 'Shoes')),
-        el('div', { class: 'box' }, el('a', { href: '#' }, 'Garden')),
-        el('div', { class: 'box' }, el('a', { href: '#' }, 'Computers')),
-        el('div', { class: 'box' }, el('a', { href: '#' }, 'Movies')),
-        el('div', { class: 'box' }, el('a', { href: '#' }, 'Books')),
-        el('div', { class: 'box' }, el('a', { href: '#' }, 'Jewelry')),
-        el('div', { class: 'box' }, el('a', { href: '#' }, 'Electronics')),
-        el('div', { class: 'box' }, el('a', { href: '#' }, 'Grocery')),
-        el('div', { class: 'box' }, el('a', { href: '#' }, 'Outdoors')),
-        el('div', { class: 'box' }, el('a', { href: '#' }, 'Sports')),
-        el('div', { class: 'box' }, el('a', { href: '#' }, 'Tools'))
-    );
+//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Shoes')),
+//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Garden')),
+//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Computers')),
+//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Movies')),
+//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Books')),
+//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Jewelry')),
+//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Electronics')),
+//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Grocery')),
+//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Outdoors')),
+//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Sports')),
+//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Tools'))
+//    );
+//}
+
+export async function renderCategoryBoxes() {
+    const categoryResponse = await fetchCategories();
+    const categoryContainer = el('section', { class: 'boxes' });
+
+    for (const { items } of categoryResponse) {
+        categoryContainer.appendChild(
+            el(
+                'section',
+                { class: 'boxes' },
+                el('a', { href: `?category=${e.id}` }, e.title)
+            )
+        );
+    }
+
+    return categoryContainer;
 }
-
 
 // renderDetails á að búa til síðu fyrir sérstaka vöru
 
