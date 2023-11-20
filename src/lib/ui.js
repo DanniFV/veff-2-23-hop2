@@ -81,7 +81,7 @@ export async function renderFrontpage(parentElement, query = '') {
 
     // Render category section
     const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
-    const takki = el('p', { class: 'takki_forsida' }, el('a', { href: '%' }, 'Skoða alla flokkana'));
+    const takki = el('p', { class: 'takki_forsida' }, el('a', { href: '/' }, 'Skoða alla flokkana'));
     takki.addEventListener('click', getVoru);
     // Ég skil ekki hvað ég þarf að gera hér til að fá þennan takka til að virka....
 
@@ -132,7 +132,9 @@ function renderCategoryBoxes() {
     return el(
         'section',
         { class: 'boxes' },
-        el('div', { class: 'box' }, el('a', { href: '#' }, 'Clothing')),
+        el('div', { class: 'box' }, el('a', { href: '?category=' + category.id }, category.title)),
+
+
         el('div', { class: 'box' }, el('a', { href: '#' }, 'Shoes')),
         el('div', { class: 'box' }, el('a', { href: '#' }, 'Garden')),
         el('div', { class: 'box' }, el('a', { href: '#' }, 'Computers')),
