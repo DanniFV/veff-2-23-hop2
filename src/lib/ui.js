@@ -114,6 +114,53 @@ export async function renderFrontpage(parentElement, query = '') {
     }
 
     parentElement.appendChild(List);
+    try {
+        const navigation = el(
+            'header',
+            { class: 'header' },
+            el(
+                'nav',
+                { class: 'navigation' },
+                el(
+                    'ul',
+                    { class: 'index-title' },
+                    el(
+                        'li',
+                        {},
+                        el(
+                            'a',
+                            { href: '#', class: 'title-link' },
+                            el(
+                                'strong',
+                                { class: 'title' },
+                                'Vefforitunarbúðin'
+                            )
+                        )
+                    )
+                ),
+                el(
+                    'div',
+                    { class: 'nav-right-index' },
+                    el(
+                        'ul',
+                        { class: 'nav-top-right-index' },
+                        el('li', {}, el('a', { href: '/' }, 'Nýskrá')),
+                        el('li', {}, el('a', { href: '/' }, 'Inniskrá')),
+                        el('li', {}, el('a', { href: '/' }, 'Karfa'))
+                    ),
+                    el(
+                        'ul',
+                        { class: 'nav-bottom-right-index' },
+                        el('li', {}, el('a', { href: '/' }, 'Nýjar vörur')),
+                        el('li', {}, el('a', { href: '/' }, 'Flokkar'))
+                    )
+                )
+            )
+        );
+        parentElement.appendChild(navigation);
+    } catch (error) {
+        console.error(error);
+    }
 
     // Render category section
     const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
@@ -163,7 +210,7 @@ export async function renderFrontpage(parentElement, query = '') {
 // Helper function to render category boxes
 export async function renderCategoryBoxes() {
     const categoryResponse = await fetchCategories();
-    console.log(categoryResponse)
+    console.log(categoryResponse);
     const categoryContainer = el('section', { class: 'boxes' });
 
     for (const items of categoryResponse) {
