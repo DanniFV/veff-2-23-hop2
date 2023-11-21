@@ -1,4 +1,4 @@
-import { fetchCategories, getVoru, searchProducts } from './api.js';
+import { fetchCategories, getVoru, searchProducts, categorySite } from './api.js';
 import { el } from './elements.js';
 
 // Render the search form used on category pages
@@ -173,14 +173,14 @@ export async function renderFrontpage(parentElement, query = '') {
     parentElement.appendChild(container);
 }
 
-// Render category content page
-// export async function renderCategory(parentElement, query = '') {
-//     const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
-//     const categoryBoxes = await renderCategoryBoxes(); // Note the 'await' here
-//
-//     const container = el('main', {}, heading, categoryBoxes);
-//     parentElement.appendChild(container);
-// }
+// Render category content page síðan sem sér um flokkana
+export async function renderCategorypage(parentElement, query = '') {
+    const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
+    const categoryBoxes = await renderCategoryBoxes(); // Note the 'await' here
+
+    const container = el('main', {}, heading, categoryBoxes);
+    parentElement.appendChild(container);
+}
 
 // Render category page 2 content
 // export async function renderCategoryPage2(parentElement, query = '') {
@@ -224,6 +224,28 @@ export async function renderCategoryBoxes() {
     }
 
     return categoryContainer;
+}
+
+// Render síðu 2 fyrir ákveðið product
+export async function renderCategory(parentElement, id) {
+    const container = el('main', {});
+    const fetchCategoryTitle = await fetchCategories(id);
+    var selectedCategory = [];
+
+    for (const box of fetchCategoryTitle) {
+        if (box.id == id) {
+            selectedCategory = box;
+        }
+    }
+
+    console.log(id);
+    const eitt = await categorySite(id);
+    console.log(eitt[0].category_title)
+
+    const nafn = el('h2', {}, eitt[id].category_title);
+    container.appendChild(nafn);
+
+    parentElement.appendChild(container);
 }
 
 // renderDetails á að búa til síðu fyrir sérstaka vöru
@@ -283,3 +305,4 @@ export async function renderDetails(parentElement, id) {
 
     container.appendChild(meiraVorur, voruElement, List);
 }
+

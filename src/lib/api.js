@@ -98,3 +98,32 @@ export async function fetchCategories(query, limit = 12) {
         return null;
     }
 }
+
+// Fallið sem sér um að sækja url fyrir products/category síðuna
+export async function categorySite(query, limit = 13, id) {
+    const url = new URL(`products?category${id}`, API_URL);
+    url.searchParams.set('items', query);
+    url.searchParams.set('limit', limit);
+    console.log(url);
+
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            console.error(
+                'Villa við að sækja gögn, ekki 200 staða',
+                response.status,
+                response.statusText
+            );
+            return null;
+        }
+
+        const json = await response.json();
+        console.log('API Resonse: ', json);
+
+        return json.items;
+    } catch (error) {
+        console.error('Villa við að vinna úr JSON: ', error);
+        return null;
+    }
+}
