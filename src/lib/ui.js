@@ -4,7 +4,7 @@ import { el } from './elements.js';
 // Render the search form used on category pages
 export function renderSearchForm(searchHandler, query = '') {
     const search = el('input', {
-        type: 'search',
+        // type: 'search'
         placeholder: 'Leitarorð',
         value: query,
     });
