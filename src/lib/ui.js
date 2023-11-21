@@ -218,7 +218,7 @@ export async function renderCategoryBoxes() {
             el(
                 'div',
                 { class: 'box' },
-                el('a', { href: `?category=${items.category_id}` }, items.title)
+                el('a', { href: `?category=${items.id}` }, items.title)
             )
         );
     }
@@ -265,7 +265,7 @@ export async function renderDetails(parentElement, id) {
     // Render related products
     const meiraVorur = el('h2', {}, `Meira úr ${hlutur.title}`);
     const List = el('section', { class: 'kassar' });
-    const searchResults = await searchProducts(hlutur.title, 6); // Change 'query' to 'hlutur.title'
+    const searchResults = await searchProducts(hlutur.title, 6);
 
     for (const hlutur of searchResults) {
         const resultEl = el(
