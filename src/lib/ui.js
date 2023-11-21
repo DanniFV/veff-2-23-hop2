@@ -53,6 +53,7 @@ function setNotLoading(parentElement, searchForm = undefined) {
         disabledButton.removeAttribute('disabled');
     }
 }
+
 export async function searchAndRender(parentElement, searchForm, query) {
     const mainElement = parentElement.querySelector('main');
 
@@ -61,7 +62,7 @@ export async function searchAndRender(parentElement, searchForm, query) {
         return;
     }
 
-    // Fjarlægja fyrri niðurstöður
+    // Remove previous results
     const resultsElement = mainElement.querySelector('.results');
     if (resultsElement) {
         resultsElement.remove();
@@ -90,6 +91,7 @@ export async function searchAndRender(parentElement, searchForm, query) {
 
 // Render frontpage content
 export async function renderFrontpage(parentElement, query = '') {
+    console.log('Rendering front page with query:', query);
     const List = el('section', { class: 'kassar' });
     const searchResults = await searchProducts(query, 6);
 
@@ -117,83 +119,59 @@ export async function renderFrontpage(parentElement, query = '') {
     const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
     const takki = el('p', { class: 'takki_forsida' }, el('a', { href: '/' }, 'Skoða alla flokkana'));
     takki.addEventListener('click', getVoru);
-    // Ég skil ekki hvað ég þarf að gera hér til að fá þennan takka til að virka....
-
     parentElement.appendChild(heading);
     parentElement.appendChild(takki);
-
-    const categoryBoxes = renderCategoryBoxes();
+    const categoryBoxes = await renderCategoryBoxes(); // Note the 'await' here
     const container = el('main', {}, nyjarvorur, List, takki, heading, categoryBoxes);
     parentElement.appendChild(container);
 }
 
 // Render category content page
-export async function renderCategory(parentElement, query = '') {
-    const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
-    const categoryBoxes = renderCategoryBoxes();
-
-    const container = el('main', {}, heading, categoryBoxes);
-    parentElement.appendChild(container);
-}
+// export async function renderCategory(parentElement, query = '') {
+//     const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
+//     const categoryBoxes = await renderCategoryBoxes(); // Note the 'await' here
+//
+//     const container = el('main', {}, heading, categoryBoxes);
+//     parentElement.appendChild(container);
+// }
 
 // Render category page 2 content
-export async function renderCategoryPage2(parentElement, query = '') {
-    const heading = el('h2', { class: 'Titill_voruflokk' }, ` ${hlutur.category_title}`);
-    const leitasida2 = renderSearchForm();
-    const List = el('section', { class: 'kassar' });
-    const searchResults = await searchProducts(query, 6);
-    for (const hlutur of searchResults) {
-        const resultEl = el(
-            'div',
-            { class: 'kassi' },
-            el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
-            el('div', { class: 'result__textar' },
-                el('p', { class: 'result__title' }, ` ${hlutur.title}`),
-                el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
-                el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
-
-            ),
-        );
-        List.appendChild(resultEl);
-    }
-
-    const categoryBoxes = renderCategoryBoxes();
-    const container = el('main', {}, heading, leitasida2, categoryBoxes, List);
-    parentElement.appendChild(container);
-}
+// export async function renderCategoryPage2(parentElement, query = '') {
+//     const heading = el('h2', { class: 'Titill_voruflokk' }, ` ${hlutur.category_title}`);
+//     const leitasida2 = renderSearchForm();
+//     const List = el('section', { class: 'kassar' });
+//     const searchResults = await searchProducts(query, 6);
+//     for (const hlutur of searchResults) {
+//         const resultEl = el(
+//             'div',
+//             { class: 'kassi' },
+//             el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
+//             el('div', { class: 'result__textar' },
+//                 el('p', { class: 'result__title' }, ` ${hlutur.title}`),
+//                 el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
+//                 el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
+//             ),
+//         );
+//         List.appendChild(resultEl);
+//     }
+//
+//     const categoryBoxes = await renderCategoryBoxes(); // Note the 'await' here
+//     const container = el('main', {}, heading, categoryBoxes, List);
+//     parentElement.appendChild(container);
+// }
 
 // Helper function to render category boxes
-//function renderCategoryBoxes() {
-//    return el(
-//        'section',
-//        { class: 'boxes' },
-//        el('div', { class: 'box' }, el('a', { href: '?category=' + category.id }, category.title)),
-
-
-//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Shoes')),
-//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Garden')),
-//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Computers')),
-//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Movies')),
-//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Books')),
-//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Jewelry')),
-//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Electronics')),
-//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Grocery')),
-//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Outdoors')),
-//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Sports')),
-//        el('div', { class: 'box' }, el('a', { href: '#' }, 'Tools'))
-//    );
-//}
-
 export async function renderCategoryBoxes() {
     const categoryResponse = await fetchCategories();
+    console.log(categoryResponse)
     const categoryContainer = el('section', { class: 'boxes' });
 
-    for (const { items } of categoryResponse) {
+    for (const items of categoryResponse) {
         categoryContainer.appendChild(
             el(
-                'section',
-                { class: 'boxes' },
-                el('a', { href: `?category=${e.id}` }, e.title)
+                'div',
+                { class: 'box' },
+                el('a', { href: `?category=${items.category_id}` }, items.title)
             )
         );
     }
@@ -202,8 +180,6 @@ export async function renderCategoryBoxes() {
 }
 
 // renderDetails á að búa til síðu fyrir sérstaka vöru
-
-
 export async function renderDetails(parentElement, id) {
     const container = el('main', {});
     parentElement.appendChild(container);
@@ -242,7 +218,7 @@ export async function renderDetails(parentElement, id) {
     // Render related products
     const meiraVorur = el('h2', {}, `Meira úr ${hlutur.title}`);
     const List = el('section', { class: 'kassar' });
-    const searchResults = await searchProducts(query, 6);
+    const searchResults = await searchProducts(hlutur.title, 6); // Change 'query' to 'hlutur.title'
 
     for (const hlutur of searchResults) {
         const resultEl = el(

@@ -71,22 +71,30 @@ export async function getVoru(id) {
 
 
 // Fallið sem sér um að sækja flokka síðuna
-export async function fetchCategories() {
-    const url = `${API_URL}categories`;
+export async function fetchCategories(query, limit = 12) {
+    const url = new URL('categories', API_URL);
+    url.searchParams.set('items', query);
+    url.searchParams.set('limit', limit);
     console.log(url);
 
     try {
         const response = await fetch(url);
 
         if (!response.ok) {
-            console.error(`Failed to fetch categories. Status: ${response.status}`);
+            console.error(
+                'Villa við að sækja gögn, ekki 200 staða',
+                response.status,
+                response.statusText
+            );
             return null;
         }
 
         const json = await response.json();
-        return json;
+        console.log('API Resonse: ', json);
+
+        return json.items;
     } catch (error) {
-        console.error('Error fetching categories:', error);
+        console.error('Villa við að vinna úr JSON: ', error);
         return null;
     }
 }
