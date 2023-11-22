@@ -95,7 +95,7 @@ export async function renderKassiDiv(hlutur) {
         { class: 'kassi' },
         el(
             'a',
-            { href: `products/${hlutur.id}` },
+            { href: `?id=${hlutur.id}` },
             el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
         ),
         el('div', { class: 'result__textar' },
