@@ -224,7 +224,13 @@ export async function renderCategoryCatelog(parentElement, query = '') {
 
 // Render síðu 2 fyrir ákveðið product
 export async function renderCategory(parentElement, id, query = '') {
-    const container = el('main', {});
+    // Render nav
+    try {
+        const navigation = await renderNavigation();
+        parentElement.appendChild(navigation);
+    } catch (error) {
+        console.error(error);
+    }
     const fetchCategoryTitle = await fetchCategorySite(id);
     var selectedCategory = [];
 
@@ -232,14 +238,6 @@ export async function renderCategory(parentElement, id, query = '') {
         if (box.id == id) {
             selectedCategory = box;
         }
-    }
-
-    // Render nav
-    try {
-        const navigation = await renderNavigation();
-        parentElement.appendChild(navigation);
-    } catch (error) {
-        console.error(error);
     }
 
     console.log(id);
@@ -267,11 +265,8 @@ export async function renderCategory(parentElement, id, query = '') {
         List.appendChild(resultEl);
     }
     const nafnASerCategory = el('h3', { class: 'nafnASerFlokk' }, 'Hér skrifa ég e-ð, ég á eftir að finna út úr þessu ')
-
-    // parentElement.appendChild(nafn);
-    parentElement.appendChild(nafnASerCategory)
-    parentElement.appendChild(searchContainer);
-    parentElement.appendChild(List);
+    const container = el('main', {}, nafnASerCategory, searchContainer, List);
+    parentElement.appendChild(container)
 }
 
 // renderDetails á að búa til síðu fyrir sérstaka vöru
@@ -317,9 +312,7 @@ export async function renderDetails(parentElement, id, query) {
         const resultEl = await renderKassiDiv(hlutur);
         List.appendChild(resultEl);
     }
-
-
-    parentElement.appendChild(meiraVorur);
-    parentElement.appendChild(List);
+    const container2 = el('main', {}, meiraVorur, voruElement, List);
+    parentElement.appendChild(container2)
 }
 
