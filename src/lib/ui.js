@@ -234,10 +234,10 @@ export async function renderCategory(parentElement, id, query = '',) {
     }
 
     console.log(id);
-    const eitt = await fetchCategorySite(id);
-    console.log(eitt[0].category_title)
+    const categorySiteData = await fetchCategorySite(id);
+    console.log(categorySiteData[0].category_title)
 
-    const nafn = el('h2', {}, eitt[id].category_title);
+    const nafn = el('h2', {}, categorySiteData[id].category_title);
     const searchContainer = el(
         'form',
         {},
@@ -308,24 +308,13 @@ export async function renderDetails(parentElement, id) {
     const List = el('section', { class: 'kassar' });
     const searchResults = await searchProducts(hlutur.title, 6);
 
-    for (const hlutur of searchResults) {
-        const resultEl = el(
-            'div',
-            { class: 'kassi' },
-            el(
-                'a',
-                { href: `products/${hlutur.id}` },
 
-                el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
-            ),
-            el('div', { class: 'result__textar' },
-                el('p', { class: 'result__title' }, ` ${hlutur.title}`),
-                el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
-                el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
-            )
-        );
+    // Hérna er kóðinn fyrir div kassi
+    for (const hlutur of searchResults) {
+        const resultEl = await renderKassiDiv(hlutur);
         List.appendChild(resultEl);
     }
+
 
     container.appendChild(meiraVorur, voruElement, List);
 }
