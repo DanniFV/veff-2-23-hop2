@@ -286,6 +286,12 @@ export async function renderDetails(parentElement, id) {
     setLoading(container);
     const hlutur = await getVoru(id);
     setNotLoading(container);
+    try {
+        const navigation = await renderNavigation();
+        parentElement.appendChild(navigation);
+    } catch (error) {
+        console.error(error);
+    }
 
     // Check for error in fetching data
     if (!hlutur) {
