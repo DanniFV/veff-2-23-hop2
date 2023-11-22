@@ -134,6 +134,24 @@ export async function renderNavigation() {
         )
     );
 }
+// Helper function to render category boxes
+export async function renderCategoryBoxes() {
+    const categoryResponse = await fetchCategories();
+    console.log(categoryResponse);
+    const categoryContainer = el('section', { class: 'boxes' });
+
+    for (const items of categoryResponse) {
+        categoryContainer.appendChild(
+            el(
+                'div',
+                { class: 'box' },
+                el('a', { href: `?category=${items.id}` }, items.title)
+            )
+        );
+    }
+
+    return categoryContainer;
+}
 
 // Render frontpage content
 export async function renderFrontpage(parentElement, query = '') {
@@ -194,29 +212,10 @@ export async function renderCategorypage(parentElement, query = '') {
 }
 
 
-// Helper function to render category boxes
-export async function renderCategoryBoxes() {
-    const categoryResponse = await fetchCategories();
-    console.log(categoryResponse);
-    const categoryContainer = el('section', { class: 'boxes' });
-
-    for (const items of categoryResponse) {
-        categoryContainer.appendChild(
-            el(
-                'div',
-                { class: 'box' },
-                el('a', { href: `?category=${items.id}` }, items.title)
-            )
-        );
-    }
-
-    return categoryContainer;
-}
-
 // Render síðu 2 fyrir ákveðið product
 export async function renderCategory(parentElement, id, query = '',) {
     const container = el('main', {});
-    const fetchCategoryTitle = await fetchCategories(id);
+    const fetchCategoryTitle = await fetchCategorySite(id);
     var selectedCategory = [];
 
     for (const box of fetchCategoryTitle) {
