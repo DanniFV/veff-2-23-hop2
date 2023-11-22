@@ -267,16 +267,10 @@ export async function renderCategory(parentElement, id, query = '') {
         List.appendChild(resultEl);
     }
 
-    const backButton = el(
-        'div',
-        { class: 'back' },
-        el('a', { href: '/' }, 'Til baka')
-    );
     // parentElement.appendChild(nafn);
     parentElement.appendChild(nafnASerCategory)
     parentElement.appendChild(searchContainer);
     parentElement.appendChild(List);
-    parentElement.appendChild(backButton);
 }
 
 // renderDetails á að búa til síðu fyrir sérstaka vöru
@@ -317,7 +311,6 @@ export async function renderDetails(parentElement, id) {
     const meiraVorur = el('h1', {}, `Meira úr ${hlutur.category_title}`);
     const List = el('section', { class: 'kassar' });
     const searchResults3 = await fetchCategorySite(id);
-
     // Hérna er kóðinn fyrir div kassi
     for (const hlutur of searchResults3) {
         const resultEl = await renderKassiDiv(hlutur);
