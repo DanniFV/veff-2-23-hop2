@@ -5,15 +5,10 @@
 ### hi: dfv1@hi.is
 ### Kristín Fríða Sigurborgardóttir, @KristinFrida
 ### hi: kfs14@hi.is
-<<<<<<< HEAD
-### Sölvi Hrafn Steinþórsson, Solvikrummi
-### hi: shs89@hi.is
-=======
 ### Sölvi Hrafn Steinþórsson, @Solvikrummi
 ### hi: shs89@hi.is
 ### Matthías Veigar Ólafsson, @Colinbresgo
 ### hi: mvo3@hi.is
->>>>>>> e200694567474392635a14d3924cb12089664fbc
 
 ## Hvernig á að keyra verkefnið
   - `npm run dev`
