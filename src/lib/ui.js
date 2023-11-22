@@ -218,14 +218,25 @@ export async function renderCategorypage(parentElement, query = '') {
 // Render síðu 2 fyrir ákveðið product
 export async function renderCategory(parentElement, id, query = '',) {
     const container = el('main', {});
-    const fetchCategoryTitle = await fetchCategorySite(id);
-    var selectedCategory = [];
+    //    const fetchCategoryTitle = await fetchCategorySite(id);
+    //    var selectedCategory = [];
 
-    for (const box of fetchCategoryTitle) {
-        if (box.id == id) {
-            selectedCategory = box;
-        }
+    //    for (const box of fetchCategoryTitle) {
+    //        if (box.id == id) {
+    //            selectedCategory = box;
+    //        }
+    //    }
+    const categoryResponse = await fetchCategories();
+    const category = categoryResponse.items.find(
+        (c) => c.id === Number.parseInt(categoryId)
+    );
+
+    if (!category) {
+        console.error('Flokkur fannst ekki');
+        return;
     }
+
+    // Render nav
     try {
         const navigation = await renderNavigation();
         parentElement.appendChild(navigation);
@@ -307,7 +318,6 @@ export async function renderDetails(parentElement, id) {
     const meiraVorur = el('h2', {}, `Meira úr ${hlutur.title}`);
     const List = el('section', { class: 'kassar' });
     const searchResults = await searchProducts(hlutur.title, 6);
-
 
     // Hérna er kóðinn fyrir div kassi
     for (const hlutur of searchResults) {
