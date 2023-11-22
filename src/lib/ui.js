@@ -122,7 +122,7 @@ export async function renderNavigation() {
                     {},
                     el(
                         'a',
-                        { href: '#', class: 'title-link' },
+                        { href: '/', class: 'title-link' },
                         el(
                             'strong',
                             { class: 'title' },
@@ -223,7 +223,7 @@ export async function renderCategoryCatelog(parentElement, query = '') {
 }
 
 // Render síðu 2 fyrir ákveðið product
-export async function renderCategory(parentElement, id, query = '',) {
+export async function renderCategory(parentElement, id, query = '') {
     const container = el('main', {});
     const fetchCategoryTitle = await fetchCategorySite(id);
     var selectedCategory = [];
@@ -279,38 +279,49 @@ export async function renderCategory(parentElement, id, query = '',) {
 // renderDetails á að búa til síðu fyrir sérstaka vöru
 export async function renderDetails(parentElement, id) {
     const container = el('main', {});
-    parentElement.appendChild(container);
 
     setLoading(container);
-    const result = await getVoru(id);
+    const hlutur = await getVoru(id);
     setNotLoading(container);
 
     // Check for error in fetching data
-    if (!result) {
-        container.appendChild(el('p', {}, 'Villa við að sækja gögn um geimskot!'));
+    if (!hlutur) {
+        container.appendChild(el('p', {}, 'Villa við að sækja gögn um vöru!'));
         return;
     }
 
-    const hlutur = result; // Assuming result is the data structure you want to work with
-
-    // Render main details
     const voruElement = el(
-        'article',
+        'div',
         { class: 'vara' },
         el(
             'section',
             { class: 'info' },
-            el('h1', {}, hlutur.title),
-            el(
-                'div',
-                { class: 'info' },
-                el('h2', {}, `${hlutur.title}`),
-                el('p', {}, `Flokkur: ${hlutur.category_title}`),
-                el('p', {}, hlutur.status.description),
-            ),
+            el('h2', { class: 'title_voru' }, `${hlutur.title}`),
+            el('p', { class: 'verd_voru' }, `Verð: ${hlutur.price} kr,-`),
+            el('p', { class: 'flokkur_title' }, `Flokkur: ${hlutur.category_title}`),
+            el('p', { class: 'description' }, hlutur.description),
+            el('a', { href: `?id=${hlutur.id}` }, 'Skoða meira')
         ),
-        el('div', { class: 'image' }, el('img', { src: hlutur.image, alt: hlutur.title })),
-    );
+        el('div', { class: 'mynd' }, el('img', { src: hlutur.image, alt: hlutur.title }))
+    )
+    parentElement.appendChild(voruElement);
+    // Render main details
+    //const voruElement = el(
+    //    'div',
+    //    { class: 'vara' },
+    //    el(
+    //        'section',
+    //        { class: 'info' },
+    //        el('h2', {}, `${hlutur.title}`)
+    //        el('h1', {}, hlutur.title),
+    //        el(
+    //            'div',
+    //            { class: 'info' },
+    //
+    //            ),
+    //        ),
+    //        el('div', { class: 'image' }, el('img', { src: hlutur.image, alt: hlutur.title })),
+    //    );
 
     // Render related products
     const meiraVorur = el('h2', {}, `Meira úr ${hlutur.title}`);
