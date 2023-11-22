@@ -203,7 +203,7 @@ export async function renderCategoryBoxes() {
 }
 
 // Render síðu 2 fyrir ákveðið product
-export async function renderCategory(parentElement, id) {
+export async function renderCategory(parentElement, id, query = '',) {
     const container = el('main', {});
     const fetchCategoryTitle = await fetchCategories(id);
     var selectedCategory = [];
@@ -265,6 +265,14 @@ export async function renderCategory(parentElement, id) {
     console.log(eitt[0].category_title)
 
     const nafn = el('h2', {}, eitt[id].category_title);
+    const searchContainer = el(
+        'form',
+        {},
+        'Leita: ',
+        el('input', { value: query ?? '', name: 'query' }),
+        el('button', {}, 'Leita')
+    );
+
 
     const List = el('section', { class: 'kassar' });
     const searchResults = await fetchCategorySite(id);
@@ -285,6 +293,7 @@ export async function renderCategory(parentElement, id) {
         List.appendChild(resultEl);
     }
     parentElement.appendChild(nafn);
+    parentElement.appendChild(searchContainer);
     parentElement.appendChild(List);
 
 
