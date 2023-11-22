@@ -48,6 +48,7 @@
   align-items: center;
   background-color: var(--color-black);
   margin-bottom: var(--spacing);
+  margin-bottom: 3rem;
 }
 
 .header .navigation {
