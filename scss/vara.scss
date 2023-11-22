@@ -1,8 +1,8 @@
 .vara {
     display: flex;
-    margin: 2vw;
     flex-direction: row-reverse;
     gap: 1vw;
+    margin-bottom: 5vw;
 }
 
 .vara .title_voru {
@@ -13,6 +13,14 @@
 
 .vara .result__image {
     width: 300vw;
+}
+
+.meira_ur {
+    margin-bottom: 0.9vw;
+}
+
+.result__image {
+    margin-right: var(--spacing)
 }
 
 @media(max-width: 501px) {
