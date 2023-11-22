@@ -247,7 +247,7 @@ export async function renderCategory(parentElement, id, query = '') {
     console.log(categorySiteData[0].category_title)
 
     // const nafn = el('h2', {}, categorySiteData[id].category_title);
-    const nafnASerCategory = el('h3', { class: 'nafnASerFlokk' }, 'Hér skrifa ég e-ð, ég á eftir að finna út úr þessu ')
+    const nafnASerCategory = el('h2', { class: 'nafnASerFlokk' }, 'Hér skrifa ég e-ð, ég á eftir að finna út úr þessu ')
     const searchContainer = el(
         'form',
         { class: 'leita' },
