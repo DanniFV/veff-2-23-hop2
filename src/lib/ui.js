@@ -299,32 +299,13 @@ export async function renderDetails(parentElement, id) {
             el('h2', { class: 'title_voru' }, `${hlutur.title}`),
             el('p', { class: 'verd_voru' }, `Verð: ${hlutur.price} kr,-`),
             el('p', { class: 'flokkur_title' }, `Flokkur: ${hlutur.category_title}`),
-            el('p', { class: 'description' }, hlutur.description),
-            el('a', { href: `?id=${hlutur.id}` }, 'Skoða meira')
+            el('p', { class: 'description' }, hlutur.description)
         ),
-        el('div', { class: 'mynd' }, el('img', { src: hlutur.image, alt: hlutur.title }))
+        el('div', { class: 'result__image' }, el('img', { src: hlutur.image, alt: hlutur.title }))
     )
     parentElement.appendChild(voruElement);
-    // Render main details
-    //const voruElement = el(
-    //    'div',
-    //    { class: 'vara' },
-    //    el(
-    //        'section',
-    //        { class: 'info' },
-    //        el('h2', {}, `${hlutur.title}`)
-    //        el('h1', {}, hlutur.title),
-    //        el(
-    //            'div',
-    //            { class: 'info' },
-    //
-    //            ),
-    //        ),
-    //        el('div', { class: 'image' }, el('img', { src: hlutur.image, alt: hlutur.title })),
-    //    );
-
     // Render related products
-    const meiraVorur = el('h2', {}, `Meira úr ${hlutur.title}`);
+    const meiraVorur = el('h1', {}, `Meira úr ${hlutur.category_title}`);
     const List = el('section', { class: 'kassar' });
     const searchResults = await searchProducts(hlutur.title, 6);
 
@@ -335,6 +316,7 @@ export async function renderDetails(parentElement, id) {
     }
 
 
-    container.appendChild(meiraVorur, voruElement, List);
+    parentElement.appendChild(meiraVorur);
+    parentElement.appendChild(List);
 }
 
