@@ -88,6 +88,23 @@ export async function searchAndRender(parentElement, searchForm, query) {
         return null;
     }
 }
+// Render kassi div
+export async function renderKassiDiv(hlutur) {
+    return el(
+        'div',
+        { class: 'kassi' },
+        el(
+            'a',
+            { href: `products/${hlutur.id}` },
+            el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
+        ),
+        el('div', { class: 'result__textar' },
+            el('p', { class: 'result__title' }, ` ${hlutur.title}`),
+            el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
+            el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
+        )
+    );
+}
 
 // Render navigation bar
 export async function renderNavigation() {
@@ -163,23 +180,9 @@ export async function renderFrontpage(parentElement, query = '') {
     const nyjarvorur = el('h1', { class: 'nyjarvorur_title' }, 'Nýjar vörur');
     parentElement.appendChild(nyjarvorur);
 
+    // Hérna er kóðinn fyrir div kassi
     for (const hlutur of searchResults) {
-        const resultEl = el(
-            'div',
-            { class: 'kassi' },
-            el(
-                'a',
-                { href: `products/${hlutur.id}` },
-
-                el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
-            ),
-            el('div', { class: 'result__textar' },
-                el('p', { class: 'result__title' }, ` ${hlutur.title}`),
-                el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
-                el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
-            )
-
-        );
+        const resultEl = await renderKassiDiv(hlutur);
         List.appendChild(resultEl);
     }
 
@@ -245,28 +248,14 @@ export async function renderCategory(parentElement, id, query = '',) {
 
 
     const List = el('section', { class: 'kassar' });
-    const searchResults = await fetchCategorySite(id);
+    const searchResults2 = await fetchCategorySite(id);
 
-    // Render new products section
-
-    for (const hlutur of searchResults) {
-        const resultEl = el(
-            'div',
-            { class: 'kassi' },
-            el(
-                'a',
-                { href: `products/${hlutur.id}` },
-
-                el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
-            ),
-            el('div', { class: 'result__textar' },
-                el('p', { class: 'result__title' }, ` ${hlutur.title}`),
-                el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
-                el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
-            )
-        );
+    // Hérna er kóðinn fyrir div kassi
+    for (const hlutur of searchResults2) {
+        const resultEl = await renderKassiDiv(hlutur);
         List.appendChild(resultEl);
     }
+
     const backButton = el(
         'div',
         { class: 'back' },
