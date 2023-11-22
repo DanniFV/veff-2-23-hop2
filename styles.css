@@ -1,8 +1,8 @@
 @charset "UTF-8";
+
 :root {
   --spacing: 1rem;
   --max-width: 1400px;
-  --width-offset: calc(100% - (2 * var(--offset)));
   --color-black: black;
   --color-white: white;
   --font-base-body-px: 16px;
@@ -74,9 +74,11 @@
   .header {
     text-align: center;
   }
+
   .index-title {
     padding: 0;
   }
+
   .nav-top-right-index {
     list-style-type: none;
     display: list-item;
@@ -85,19 +87,23 @@
     margin: 0;
     gap: 1vw;
   }
+
   .nav-bottom-right-index {
     text-align: center;
     margin: 0;
     padding: 1vw;
   }
+
   .nav-top-right-index li {
     display: inline-block;
     margin-right: 5px;
   }
+
   .nav-top-right-index li:nth-child(3) {
     display: block;
   }
 }
+
 .boxes {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -193,26 +199,32 @@ img {
 }
 
 @media (max-width: 900px) {
+
   .kassar,
   .boxes {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
 @media (max-width: 501px) {
   .header .navigation {
     flex-direction: column;
   }
+
   .index-title {
     text-align: center;
   }
+
   .kassar,
   .boxes {
     grid-template-columns: repeat(1, 1fr);
   }
+
   .result_textar {
     display: flex;
   }
 }
+
 .takki_forsida a {
   padding: calc(var(--spacing) * 0.5);
   color: var(--color-white);
