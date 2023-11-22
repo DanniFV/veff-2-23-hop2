@@ -19,9 +19,9 @@
 
 .vara {
   display: flex;
-  margin: 2vw;
   flex-direction: row-reverse;
   gap: 1vw;
+  margin-bottom: 5vw;
 }
 
 .vara .title_voru {
@@ -32,6 +32,14 @@
 
 .vara .result__image {
   width: 300vw;
+}
+
+.meira_ur {
+  margin-bottom: 0.9vw;
+}
+
+.result__image {
+  margin-right: var(--spacing);
 }
 
 @media (max-width: 501px) {
@@ -47,13 +55,11 @@
   justify-content: space-between;
   align-items: center;
   background-color: var(--color-black);
-  margin-bottom: var(--spacing);
   margin-bottom: 3rem;
 }
 
 .header .navigation {
   width: 100%;
-  max-width: var(--width-offset);
   display: flex;
   justify-content: space-between;
 }
@@ -61,6 +67,10 @@
 .index-title {
   display: block;
   font-size: 1.5rem;
+}
+
+.index-title li {
+  list-style: none;
 }
 
 .nav-right-index {
@@ -80,6 +90,7 @@
   text-align: left;
   padding-right: var(--spacing);
   list-style: none;
+  margin-bottom: 0;
 }
 
 .nav-bottom-right-index {
@@ -178,13 +189,6 @@ img {
   padding: 5vw;
 }
 
-.boxes .box a,
-.kassar .kassi a {
-  color: var(--color-black);
-  text-decoration: none;
-  font-size: 3rem;
-}
-
 .kassar {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -197,25 +201,23 @@ img {
   object-fit: conver;
 }
 
-.kassar .kassi .result__textar {
-  display: grid;
-  grid-template-columns: auto max-content;
-  align-items: center;
+.result__textar {
+  display: flex;
+  justify-content: space-between;
+  padding: calc(var(--spacing) * 0.5) 0;
 }
 
-.kassar .kassi .result__textar .result__title,
-.kassar .kassi .result__textar .result__category {
-  grid-column: 1;
-  align-self: flex-start;
-  justify-self: start;
-  padding: 0;
+.result__title {
   margin: 0;
 }
 
-.kassar .kassi .result__textar .result__price {
-  grid-column: 2;
-  font-size: larger;
-  margin-bottom: initial;
+.result__category {
+  margin: 0;
+}
+
+.result__price {
+  margin: 0;
+  font-size: 25px;
 }
 
 @media (max-width: 900px) {
@@ -246,6 +248,14 @@ img {
   text-decoration: none;
   text-align: center;
   border-radius: 2px;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.takki_forsida:hover,
+.leitatakki:hover {
+  color: var(--color-black);
+  background-color: var(--color-white);
 }
 
 .leitatakki {
@@ -255,6 +265,7 @@ img {
   text-align: center;
   margin-bottom: 1.5rem;
   margin-left: 1rem;
+  border-radius: 3px;
 }
 
 /*# sourceMappingURL=styles.css.map */

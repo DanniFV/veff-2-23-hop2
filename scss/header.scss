@@ -3,13 +3,11 @@
     justify-content: space-between;
     align-items: center;
     background-color: var(--color-black);
-    margin-bottom: var(--spacing);
     margin-bottom: 3rem;
 }
 
 .header .navigation {
     width: 100%;
-    max-width: var(--width-offset);
     display: flex;
     justify-content: space-between;
 }
@@ -17,6 +15,10 @@
 .index-title {
     display: block;
     font-size: 1.5rem;
+}
+
+.index-title li {
+    list-style: none;
 }
 
 .nav-right-index {
@@ -36,6 +38,7 @@
     text-align: left;
     padding-right: var(--spacing);
     list-style: none;
+    margin-bottom: 0;
 }
 
 .nav-bottom-right-index {

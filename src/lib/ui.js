@@ -99,10 +99,11 @@ export async function renderKassiDiv(hlutur) {
             el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
         ),
         el('div', { class: 'result__textar' },
-            el('p', { class: 'result__title' }, ` ${hlutur.title}`),
-            el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
-            el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
-        )
+            el('div', { class: 'result__info' },
+                el('h4', { class: 'result__title' }, ` ${hlutur.title}`),
+                el('p', { class: 'result__category' }, ` ${hlutur.category_title}`)
+            ),
+            el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`))
     );
 }
 
@@ -250,7 +251,7 @@ export async function renderCategory(parentElement, id, query = '') {
         'form',
         { class: 'leita' },
         'Leita: ',
-        el('input', { value: query ?? '', name: 'query' }),
+        el('input', { value: query ?? '', name: 'query', placeholder: 'Skrifaðu vöru...' }),
         el('button', { class: 'leitatakki' }, 'Leita')
 
     );
@@ -304,7 +305,7 @@ export async function renderDetails(parentElement, id, query) {
     )
     parentElement.appendChild(voruElement);
     // Render related products
-    const meiraVorur = el('h1', {}, `Meira úr ${hlutur.category_title}`);
+    const meiraVorur = el('h1', { class: 'meira_ur' }, `Meira úr ${hlutur.category_title}`);
     const List = el('section', { class: 'kassar' });
     const searchResults3 = await searchProducts(query, 6); //HJÁLP
     // Hérna er kóðinn fyrir div kassi
