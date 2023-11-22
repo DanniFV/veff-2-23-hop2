@@ -312,7 +312,7 @@ export async function renderDetails(parentElement, id, query) {
         const resultEl = await renderKassiDiv(hlutur);
         List.appendChild(resultEl);
     }
-    const container2 = el('main', {}, meiraVorur, voruElement, List);
+    const container2 = el('main', {}, voruElement, meiraVorur, List);
     parentElement.appendChild(container2)
 }
 
