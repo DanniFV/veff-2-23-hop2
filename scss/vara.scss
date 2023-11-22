@@ -1,0 +1,27 @@
+.vara {
+    display: flex;
+    margin: 2vw;
+    flex-direction: row-reverse;
+    gap: 1vw;
+}
+
+.vara .title_voru {
+    align-items: start;
+    text-align: start;
+    margin: 0;
+}
+
+.vara .result__image {
+    width: 300vw;
+}
+
+@media(max-width: 501px) {
+    .vara {
+        flex-direction: column-reverse;
+    }
+
+    .vara .result__image {
+        width: 100%;
+    }
+
+}
