@@ -145,7 +145,7 @@ export async function renderNavigation() {
                     'ul',
                     { class: 'nav-bottom-right-index' },
                     el('li', {}, el('a', { href: '/' }, 'Nýjar vörur')),
-                    el('li', {}, el('a', { href: '/' }, 'Flokkar'))
+                    el('li', {}, el('a', { href: '#' }, 'Flokkar'))
                 )
             )
         )
@@ -213,27 +213,25 @@ export async function renderCategorypage(parentElement, query = '') {
     const container = el('main', {}, heading, categoryBoxes);
     parentElement.appendChild(container);
 }
+// Render síðu 1 fyrir þegar að "flokkar" er ýtt á þá fer það hingað og renderar sá síðu
+export async function renderCategoryCatelog(parentElement, query = '') {
+    const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
+    const categoryBoxes = await renderCategoryBoxes(); // Note the 'await' here
 
+    const container = el('main', {}, heading, categoryBoxes);
+    parentElement.appendChild(container);
+}
 
 // Render síðu 2 fyrir ákveðið product
 export async function renderCategory(parentElement, id, query = '',) {
     const container = el('main', {});
-    //    const fetchCategoryTitle = await fetchCategorySite(id);
-    //    var selectedCategory = [];
+    const fetchCategoryTitle = await fetchCategorySite(id);
+    var selectedCategory = [];
 
-    //    for (const box of fetchCategoryTitle) {
-    //        if (box.id == id) {
-    //            selectedCategory = box;
-    //        }
-    //    }
-    const categoryResponse = await fetchCategories();
-    const category = categoryResponse.items.find(
-        (c) => c.id === Number.parseInt(categoryId)
-    );
-
-    if (!category) {
-        console.error('Flokkur fannst ekki');
-        return;
+    for (const box of fetchCategoryTitle) {
+        if (box.id == id) {
+            selectedCategory = box;
+        }
     }
 
     // Render nav

@@ -1,5 +1,5 @@
 import { empty } from './lib/elements.js';
-import { renderDetails, renderFrontpage, searchAndRender, renderCategory } from './lib/ui.js';
+import { renderDetails, renderFrontpage, searchAndRender, renderCategory, renderCategoryBoxes } from './lib/ui.js';
 
 /**
  * Fall sem keyrir við leit.
@@ -44,6 +44,8 @@ function route() {
         renderCategory(parentElement, category);
     } else if (id) {
         renderDetails(parentElement, id);
+        // } else if ('#') {
+        //    renderCategoryCatelog(parentElement, id);
     } else {
         renderFrontpage(parentElement);
     }
