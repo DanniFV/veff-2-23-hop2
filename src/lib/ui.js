@@ -249,7 +249,7 @@ export async function renderCategory(parentElement, id, query = '') {
     // const nafn = el('h2', {}, categorySiteData[id].category_title);
     const searchContainer = el(
         'form',
-        {},
+        { class: 'leita' },
         'Leita: ',
         el('input', { value: query ?? '', name: 'query' }),
         el('button', {}, 'Leita')
