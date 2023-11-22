@@ -289,7 +289,12 @@ export async function renderCategory(parentElement, id, query = '',) {
         const resultEl = el(
             'div',
             { class: 'kassi' },
-            el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
+            el(
+                'a',
+                { href: `products/${hlutur.id}` },
+
+                el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
+            ),
             el('div', { class: 'result__textar' },
                 el('p', { class: 'result__title' }, ` ${hlutur.title}`),
                 el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
@@ -354,7 +359,12 @@ export async function renderDetails(parentElement, id) {
         const resultEl = el(
             'div',
             { class: 'kassi' },
-            el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
+            el(
+                'a',
+                { href: `products/${hlutur.id}` },
+
+                el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
+            ),
             el('div', { class: 'result__textar' },
                 el('p', { class: 'result__title' }, ` ${hlutur.title}`),
                 el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
