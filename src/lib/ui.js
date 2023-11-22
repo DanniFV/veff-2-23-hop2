@@ -89,6 +89,52 @@ export async function searchAndRender(parentElement, searchForm, query) {
     }
 }
 
+// Render navigation bar
+export async function renderNavigation() {
+    return el(
+        'header',
+        { class: 'header' },
+        el(
+            'nav',
+            { class: 'navigation' },
+            el(
+                'ul',
+                { class: 'index-title' },
+                el(
+                    'li',
+                    {},
+                    el(
+                        'a',
+                        { href: '#', class: 'title-link' },
+                        el(
+                            'strong',
+                            { class: 'title' },
+                            'Vefforitunarbúðin'
+                        )
+                    )
+                )
+            ),
+            el(
+                'div',
+                { class: 'nav-right-index' },
+                el(
+                    'ul',
+                    { class: 'nav-top-right-index' },
+                    el('li', {}, el('a', { href: '/' }, 'Nýskrá')),
+                    el('li', {}, el('a', { href: '/' }, 'Inniskrá')),
+                    el('li', {}, el('a', { href: '/' }, 'Karfa'))
+                ),
+                el(
+                    'ul',
+                    { class: 'nav-bottom-right-index' },
+                    el('li', {}, el('a', { href: '/' }, 'Nýjar vörur')),
+                    el('li', {}, el('a', { href: '/' }, 'Flokkar'))
+                )
+            )
+        )
+    );
+}
+
 // Render frontpage content
 export async function renderFrontpage(parentElement, query = '') {
     console.log('Rendering front page with query:', query);
@@ -121,48 +167,7 @@ export async function renderFrontpage(parentElement, query = '') {
 
     parentElement.appendChild(List);
     try {
-        const navigation = el(
-            'header',
-            { class: 'header' },
-            el(
-                'nav',
-                { class: 'navigation' },
-                el(
-                    'ul',
-                    { class: 'index-title' },
-                    el(
-                        'li',
-                        {},
-                        el(
-                            'a',
-                            { href: '#', class: 'title-link' },
-                            el(
-                                'strong',
-                                { class: 'title' },
-                                'Vefforitunarbúðin'
-                            )
-                        )
-                    )
-                ),
-                el(
-                    'div',
-                    { class: 'nav-right-index' },
-                    el(
-                        'ul',
-                        { class: 'nav-top-right-index' },
-                        el('li', {}, el('a', { href: '/' }, 'Nýskrá')),
-                        el('li', {}, el('a', { href: '/' }, 'Inniskrá')),
-                        el('li', {}, el('a', { href: '/' }, 'Karfa'))
-                    ),
-                    el(
-                        'ul',
-                        { class: 'nav-bottom-right-index' },
-                        el('li', {}, el('a', { href: '/' }, 'Nýjar vörur')),
-                        el('li', {}, el('a', { href: '/' }, 'Flokkar'))
-                    )
-                )
-            )
-        );
+        const navigation = await renderNavigation();
         parentElement.appendChild(navigation);
     } catch (error) {
         console.error(error);
@@ -220,52 +225,12 @@ export async function renderCategory(parentElement, id, query = '',) {
         }
     }
     try {
-        const navigation = el(
-            'header',
-            { class: 'header' },
-            el(
-                'nav',
-                { class: 'navigation' },
-                el(
-                    'ul',
-                    { class: 'index-title' },
-                    el(
-                        'li',
-                        {},
-                        el(
-                            'a',
-                            { href: '#', class: 'title-link' },
-                            el(
-                                'strong',
-                                { class: 'title' },
-                                'Vefforitunarbúðin'
-                            )
-                        )
-                    )
-                ),
-                el(
-                    'div',
-                    { class: 'nav-right-index' },
-                    el(
-                        'ul',
-                        { class: 'nav-top-right-index' },
-                        el('li', {}, el('a', { href: '/' }, 'Nýskrá')),
-                        el('li', {}, el('a', { href: '/' }, 'Inniskrá')),
-                        el('li', {}, el('a', { href: '/' }, 'Karfa'))
-                    ),
-                    el(
-                        'ul',
-                        { class: 'nav-bottom-right-index' },
-                        el('li', {}, el('a', { href: '/' }, 'Nýjar vörur')),
-                        el('li', {}, el('a', { href: '/' }, 'Flokkar'))
-                    )
-                )
-            )
-        );
+        const navigation = await renderNavigation();
         parentElement.appendChild(navigation);
     } catch (error) {
         console.error(error);
     }
+
     console.log(id);
     const eitt = await fetchCategorySite(id);
     console.log(eitt[0].category_title)
