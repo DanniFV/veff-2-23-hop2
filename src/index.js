@@ -39,8 +39,11 @@ function route() {
     const category = qs.get('category');
     const parentElement = document.body;
     empty(parentElement);
+
     if (category) {
         renderCategory(parentElement, category);
+    } else if (id) {
+        renderDetails(parentElement, id);
     } else {
         renderFrontpage(parentElement);
     }

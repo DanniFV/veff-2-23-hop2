@@ -41,7 +41,7 @@ export async function getVoru(id) {
     return json;
 }
 // Fallið sem sér um að sækja flokka fyrir forsíðuna
-export async function fetchCategories(query, limit = 12) {
+export async function fetchCategories(query, limit = 13) {
     const url = new URL('categories', API_URL);
     url.searchParams.set('items', query);
     url.searchParams.set('limit', limit);
