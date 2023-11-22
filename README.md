@@ -7,6 +7,8 @@
 ### hi: kfs14@hi.is
 ### Sölvi Hrafn Steinþórsson, @Solvikrummi
 ### hi: shs89@hi.is
+### Matthías Veigar Ólafsson, @Colinbresgo
+### hi: mvo3@hi.is
 
 ## Hvernig á að keyra verkefnið
   - `npm run dev`
