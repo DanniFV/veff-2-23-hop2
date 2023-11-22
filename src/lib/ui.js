@@ -88,6 +88,87 @@ export async function searchAndRender(parentElement, searchForm, query) {
         return null;
     }
 }
+// Render kassi div
+export async function renderKassiDiv(hlutur) {
+    return el(
+        'div',
+        { class: 'kassi' },
+        el(
+            'a',
+            { href: `products/${hlutur.id}` },
+            el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
+        ),
+        el('div', { class: 'result__textar' },
+            el('p', { class: 'result__title' }, ` ${hlutur.title}`),
+            el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
+            el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
+        )
+    );
+}
+
+// Render navigation bar
+export async function renderNavigation() {
+    return el(
+        'header',
+        { class: 'header' },
+        el(
+            'nav',
+            { class: 'navigation' },
+            el(
+                'ul',
+                { class: 'index-title' },
+                el(
+                    'li',
+                    {},
+                    el(
+                        'a',
+                        { href: '#', class: 'title-link' },
+                        el(
+                            'strong',
+                            { class: 'title' },
+                            'Vefforitunarbúðin'
+                        )
+                    )
+                )
+            ),
+            el(
+                'div',
+                { class: 'nav-right-index' },
+                el(
+                    'ul',
+                    { class: 'nav-top-right-index' },
+                    el('li', {}, el('a', { href: '/' }, 'Nýskrá')),
+                    el('li', {}, el('a', { href: '/' }, 'Inniskrá')),
+                    el('li', {}, el('a', { href: '/' }, 'Karfa'))
+                ),
+                el(
+                    'ul',
+                    { class: 'nav-bottom-right-index' },
+                    el('li', {}, el('a', { href: '/' }, 'Nýjar vörur')),
+                    el('li', {}, el('a', { href: '#' }, 'Flokkar'))
+                )
+            )
+        )
+    );
+}
+// Helper function to render category boxes
+export async function renderCategoryBoxes() {
+    const categoryResponse = await fetchCategories();
+    console.log(categoryResponse);
+    const categoryContainer = el('section', { class: 'boxes' });
+
+    for (const items of categoryResponse) {
+        categoryContainer.appendChild(
+            el(
+                'div',
+                { class: 'box' },
+                el('a', { href: `?category=${items.id}` }, items.title)
+            )
+        );
+    }
+
+    return categoryContainer;
+}
 
 // Render frontpage content
 export async function renderFrontpage(parentElement, query = '') {
@@ -99,64 +180,15 @@ export async function renderFrontpage(parentElement, query = '') {
     const nyjarvorur = el('h1', { class: 'nyjarvorur_title' }, 'Nýjar vörur');
     parentElement.appendChild(nyjarvorur);
 
+    // Hérna er kóðinn fyrir div kassi
     for (const hlutur of searchResults) {
-        const resultEl = el(
-            'div',
-            { class: 'kassi' },
-            el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
-            el('div', { class: 'result__textar' },
-                el('p', { class: 'result__title' }, ` ${hlutur.title}`),
-                el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
-                el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
-            )
-        );
+        const resultEl = await renderKassiDiv(hlutur);
         List.appendChild(resultEl);
     }
 
     parentElement.appendChild(List);
     try {
-        const navigation = el(
-            'header',
-            { class: 'header' },
-            el(
-                'nav',
-                { class: 'navigation' },
-                el(
-                    'ul',
-                    { class: 'index-title' },
-                    el(
-                        'li',
-                        {},
-                        el(
-                            'a',
-                            { href: '#', class: 'title-link' },
-                            el(
-                                'strong',
-                                { class: 'title' },
-                                'Vefforitunarbúðin'
-                            )
-                        )
-                    )
-                ),
-                el(
-                    'div',
-                    { class: 'nav-right-index' },
-                    el(
-                        'ul',
-                        { class: 'nav-top-right-index' },
-                        el('li', {}, el('a', { href: '/' }, 'Nýskrá')),
-                        el('li', {}, el('a', { href: '/' }, 'Inniskrá')),
-                        el('li', {}, el('a', { href: '/' }, 'Karfa'))
-                    ),
-                    el(
-                        'ul',
-                        { class: 'nav-bottom-right-index' },
-                        el('li', {}, el('a', { href: '/' }, 'Nýjar vörur')),
-                        el('li', {}, el('a', { href: '/' }, 'Flokkar'))
-                    )
-                )
-            )
-        );
+        const navigation = await renderNavigation();
         parentElement.appendChild(navigation);
     } catch (error) {
         console.error(error);
@@ -181,31 +213,19 @@ export async function renderCategorypage(parentElement, query = '') {
     const container = el('main', {}, heading, categoryBoxes);
     parentElement.appendChild(container);
 }
+// Render síðu 1 fyrir þegar að "flokkar" er ýtt á þá fer það hingað og renderar sá síðu
+export async function renderCategoryCatelog(parentElement, query = '') {
+    const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
+    const categoryBoxes = await renderCategoryBoxes(); // Note the 'await' here
 
-
-// Helper function to render category boxes
-export async function renderCategoryBoxes() {
-    const categoryResponse = await fetchCategories();
-    console.log(categoryResponse);
-    const categoryContainer = el('section', { class: 'boxes' });
-
-    for (const items of categoryResponse) {
-        categoryContainer.appendChild(
-            el(
-                'div',
-                { class: 'box' },
-                el('a', { href: `?category=${items.id}` }, items.title)
-            )
-        );
-    }
-
-    return categoryContainer;
+    const container = el('main', {}, heading, categoryBoxes);
+    parentElement.appendChild(container);
 }
 
 // Render síðu 2 fyrir ákveðið product
 export async function renderCategory(parentElement, id, query = '',) {
     const container = el('main', {});
-    const fetchCategoryTitle = await fetchCategories(id);
+    const fetchCategoryTitle = await fetchCategorySite(id);
     var selectedCategory = [];
 
     for (const box of fetchCategoryTitle) {
@@ -213,58 +233,20 @@ export async function renderCategory(parentElement, id, query = '',) {
             selectedCategory = box;
         }
     }
+
+    // Render nav
     try {
-        const navigation = el(
-            'header',
-            { class: 'header' },
-            el(
-                'nav',
-                { class: 'navigation' },
-                el(
-                    'ul',
-                    { class: 'index-title' },
-                    el(
-                        'li',
-                        {},
-                        el(
-                            'a',
-                            { href: '#', class: 'title-link' },
-                            el(
-                                'strong',
-                                { class: 'title' },
-                                'Vefforitunarbúðin'
-                            )
-                        )
-                    )
-                ),
-                el(
-                    'div',
-                    { class: 'nav-right-index' },
-                    el(
-                        'ul',
-                        { class: 'nav-top-right-index' },
-                        el('li', {}, el('a', { href: '/' }, 'Nýskrá')),
-                        el('li', {}, el('a', { href: '/' }, 'Inniskrá')),
-                        el('li', {}, el('a', { href: '/' }, 'Karfa'))
-                    ),
-                    el(
-                        'ul',
-                        { class: 'nav-bottom-right-index' },
-                        el('li', {}, el('a', { href: '/' }, 'Nýjar vörur')),
-                        el('li', {}, el('a', { href: '/' }, 'Flokkar'))
-                    )
-                )
-            )
-        );
+        const navigation = await renderNavigation();
         parentElement.appendChild(navigation);
     } catch (error) {
         console.error(error);
     }
-    console.log(id);
-    const eitt = await fetchCategorySite(id);
-    console.log(eitt[0].category_title)
 
-    const nafn = el('h2', {}, eitt[id].category_title);
+    console.log(id);
+    const categorySiteData = await fetchCategorySite(id);
+    console.log(categorySiteData[0].category_title)
+
+    // const nafn = el('h2', {}, categorySiteData[id].category_title);
     const searchContainer = el(
         'form',
         {},
@@ -275,31 +257,23 @@ export async function renderCategory(parentElement, id, query = '',) {
 
 
     const List = el('section', { class: 'kassar' });
-    const searchResults = await fetchCategorySite(id);
+    const searchResults2 = await fetchCategorySite(id);
 
-    // Render new products section
-
-    for (const hlutur of searchResults) {
-        const resultEl = el(
-            'div',
-            { class: 'kassi' },
-            el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
-            el('div', { class: 'result__textar' },
-                el('p', { class: 'result__title' }, ` ${hlutur.title}`),
-                el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
-                el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
-            )
-        );
+    // Hérna er kóðinn fyrir div kassi
+    for (const hlutur of searchResults2) {
+        const resultEl = await renderKassiDiv(hlutur);
         List.appendChild(resultEl);
     }
-    parentElement.appendChild(nafn);
+
+    const backButton = el(
+        'div',
+        { class: 'back' },
+        el('a', { href: '/' }, 'Til baka')
+    );
+    // parentElement.appendChild(nafn);
     parentElement.appendChild(searchContainer);
     parentElement.appendChild(List);
-
-
-
-
-    parentElement.appendChild(container);
+    parentElement.appendChild(backButton);
 }
 
 // renderDetails á að búa til síðu fyrir sérstaka vöru
@@ -343,19 +317,12 @@ export async function renderDetails(parentElement, id) {
     const List = el('section', { class: 'kassar' });
     const searchResults = await searchProducts(hlutur.title, 6);
 
+    // Hérna er kóðinn fyrir div kassi
     for (const hlutur of searchResults) {
-        const resultEl = el(
-            'div',
-            { class: 'kassi' },
-            el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
-            el('div', { class: 'result__textar' },
-                el('p', { class: 'result__title' }, ` ${hlutur.title}`),
-                el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
-                el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
-            )
-        );
+        const resultEl = await renderKassiDiv(hlutur);
         List.appendChild(resultEl);
     }
+
 
     container.appendChild(meiraVorur, voruElement, List);
 }
