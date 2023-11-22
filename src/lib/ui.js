@@ -247,7 +247,7 @@ export async function renderCategory(parentElement, id, query = '') {
     console.log(categorySiteData[0].category_title)
 
     // const nafn = el('h2', {}, categorySiteData[id].category_title);
-    const nafnASerCategory = el('h3', { class: 'nafnASerFlokk' }, 'Hér skrifa ég e-ð')
+    const nafnASerCategory = el('h3', { class: 'nafnASerFlokk' }, 'Hér skrifa ég e-ð, ég á eftir að finna út úr þessu ')
     const searchContainer = el(
         'form',
         { class: 'leita' },
@@ -310,10 +310,10 @@ export async function renderDetails(parentElement, id) {
     // Render related products
     const meiraVorur = el('h1', {}, `Meira úr ${hlutur.category_title}`);
     const List = el('section', { class: 'kassar' });
-    const searchResults = await fetchCategorySite(id);
+    const searchResults3 = await fetchCategorySite(id);
 
     // Hérna er kóðinn fyrir div kassi
-    for (const hlutur of searchResults) {
+    for (const hlutur of searchResults3) {
         const resultEl = await renderKassiDiv(hlutur);
         List.appendChild(resultEl);
     }
