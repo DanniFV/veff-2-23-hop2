@@ -246,7 +246,7 @@ export async function renderCategory(parentElement, id, query = '',) {
     const categorySiteData = await fetchCategorySite(id);
     console.log(categorySiteData[0].category_title)
 
-    const nafn = el('h2', {}, categorySiteData[id].category_title);
+    // const nafn = el('h2', {}, categorySiteData[id].category_title);
     const searchContainer = el(
         'form',
         {},
@@ -270,7 +270,7 @@ export async function renderCategory(parentElement, id, query = '',) {
         { class: 'back' },
         el('a', { href: '/' }, 'Til baka')
     );
-    parentElement.appendChild(nafn);
+    // parentElement.appendChild(nafn);
     parentElement.appendChild(searchContainer);
     parentElement.appendChild(List);
     parentElement.appendChild(backButton);
