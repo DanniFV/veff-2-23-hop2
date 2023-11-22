@@ -53,7 +53,7 @@ export async function fetchCategories(query, limit = 13) {
 }
 
 // Fallið sem sér um að sækja url fyrir products/category síðuna
-export async function categorySite(query, limit = 13, id) {
+export async function fetchCategorySite(query, limit = 12, id) {
     const url = new URL('products', API_URL);
     url.searchParams.set('category', id);
     url.searchParams.set('items', query);

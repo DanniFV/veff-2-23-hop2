@@ -1,4 +1,4 @@
-import { fetchCategories, getVoru, searchProducts, categorySite } from './api.js';
+import { fetchCategories, getVoru, searchProducts, fetchCategorySite } from './api.js';
 import { el } from './elements.js';
 
 // Render the search form used on category pages
@@ -182,30 +182,6 @@ export async function renderCategorypage(parentElement, query = '') {
     parentElement.appendChild(container);
 }
 
-// Render category page 2 content
-// export async function renderCategoryPage2(parentElement, query = '') {
-//     const heading = el('h2', { class: 'Titill_voruflokk' }, ` ${hlutur.category_title}`);
-//     const leitasida2 = renderSearchForm();
-//     const List = el('section', { class: 'kassar' });
-//     const searchResults = await searchProducts(query, 6);
-//     for (const hlutur of searchResults) {
-//         const resultEl = el(
-//             'div',
-//             { class: 'kassi' },
-//             el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
-//             el('div', { class: 'result__textar' },
-//                 el('p', { class: 'result__title' }, ` ${hlutur.title}`),
-//                 el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
-//                 el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
-//             ),
-//         );
-//         List.appendChild(resultEl);
-//     }
-//
-//     const categoryBoxes = await renderCategoryBoxes(); // Note the 'await' here
-//     const container = el('main', {}, heading, categoryBoxes, List);
-//     parentElement.appendChild(container);
-// }
 
 // Helper function to render category boxes
 export async function renderCategoryBoxes() {
@@ -285,11 +261,34 @@ export async function renderCategory(parentElement, id) {
         console.error(error);
     }
     console.log(id);
-    const eitt = await categorySite(id);
+    const eitt = await fetchCategorySite(id);
     console.log(eitt[0].category_title)
 
     const nafn = el('h2', {}, eitt[id].category_title);
-    container.appendChild(nafn);
+
+    const List = el('section', { class: 'kassar' });
+    const searchResults = await fetchCategorySite(id);
+
+    // Render new products section
+
+    for (const hlutur of searchResults) {
+        const resultEl = el(
+            'div',
+            { class: 'kassi' },
+            el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
+            el('div', { class: 'result__textar' },
+                el('p', { class: 'result__title' }, ` ${hlutur.title}`),
+                el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
+                el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
+            )
+        );
+        List.appendChild(resultEl);
+    }
+    parentElement.appendChild(nafn);
+    parentElement.appendChild(List);
+
+
+
 
     parentElement.appendChild(container);
 }
