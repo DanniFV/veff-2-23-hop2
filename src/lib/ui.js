@@ -252,7 +252,8 @@ export async function renderCategory(parentElement, id, query = '') {
         { class: 'leita' },
         'Leita: ',
         el('input', { value: query ?? '', name: 'query' }),
-        el('button', {}, 'Leita')
+        el('button', { class: 'leitatakki' }, 'Leita')
+
     );
 
 
