@@ -103,12 +103,18 @@ export async function renderFrontpage(parentElement, query = '') {
         const resultEl = el(
             'div',
             { class: 'kassi' },
-            el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
+            el(
+                'a',
+                { href: `products/${hlutur.id}` },
+
+                el('img', { class: 'result__image', src: hlutur.image, alt: hlutur.title }),
+            ),
             el('div', { class: 'result__textar' },
                 el('p', { class: 'result__title' }, ` ${hlutur.title}`),
                 el('p', { class: 'result__price' }, ` ${hlutur.price} kr.-`),
                 el('p', { class: 'result__category' }, ` ${hlutur.category_title}`),
             )
+
         );
         List.appendChild(resultEl);
     }
@@ -292,14 +298,15 @@ export async function renderCategory(parentElement, id, query = '',) {
         );
         List.appendChild(resultEl);
     }
+    const backButton = el(
+        'div',
+        { class: 'back' },
+        el('a', { href: '/' }, 'Til baka')
+    );
     parentElement.appendChild(nafn);
     parentElement.appendChild(searchContainer);
     parentElement.appendChild(List);
-
-
-
-
-    parentElement.appendChild(container);
+    parentElement.appendChild(backButton);
 }
 
 // renderDetails á að búa til síðu fyrir sérstaka vöru
