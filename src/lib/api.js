@@ -51,3 +51,10 @@ export async function fetchCategorySite(id, limit = 20) {
     const json = await fetchDataFromAPI(url);
     return json ? json.items : null;
 }
+export async function allCategories(query, limit = 13) {
+    const url = new URL(`categories`, API_URL);
+    url.searchParams.set('items', query);
+    url.searchParams.set('limit', limit);
+    const json = await fetchDataFromAPI(url);
+    return json ? json.items : null;
+}

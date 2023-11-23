@@ -128,7 +128,7 @@ export async function renderNavigation() {
                     'ul',
                     { class: 'nav-bottom-right-index' },
                     el('li', {}, el('a', { href: '/' }, 'Nýjar vörur')),
-                    el('li', {}, el('a', { href: '#' }, 'Flokkar'))
+                    el('li', {}, el('a', { href: '?categories=categories' }, 'Flokkar'))
                 )
             )
         )
@@ -207,6 +207,9 @@ export async function renderCategoryCatelog(parentElement) {
 // Render síðu 2 fyrir ákveðið product
 export async function renderCategory(parentElement, id, query = '') {
     // Render nav
+    if (id == 'all') {
+        render
+    }
     try {
         const navigation = await renderNavigation();
         parentElement.appendChild(navigation);
@@ -299,3 +302,28 @@ export async function renderDetails(parentElement, id, query) {
 // Vantar að gera Vörulisti
 // Fyrir neðan vörur í vörulista skal vera hlekkur sem fer á forsíðu.
 // Ha? Fyrir neðan vörur skal vera hlekkur sem fer á vörulista með öllum vörum.
+
+
+//Síða fyrir öll gategories(kemur þegar er ýtt á Flokka)
+export async function renderCategories(parentElement, id) {
+    const header = el(
+        'header',
+        { class: 'header' },
+        el('nav', { class: 'navi' },
+            el('ul', { class: 'title' },
+                el('li', {},
+                    el('a', { href: '/', class: 'heim_linkur' },
+                        el('strong', { class: 'title' }, 'Vefforritunarbúðin')))),
+            el('div', { class: 'nav_haegri' },
+                el('ul', { class: 'nav_uppi' },
+                    el('li', {}, el('a', { href: '/' }, 'Nýskrá')),
+                    el('li', {}, el('a', { href: '/' }, 'Innskrá')),
+                    el('li', {}, el('a', { href: '/' }, 'Karfa'))),
+                el('ul', { class: 'nav_nidri' },
+                    el('li', {}, el('a', { href: '/' }, 'Nýjar vörur')),
+                    el('li', {}, el('a', { href: `categories=all` }, 'Flokkar')))
+            )));
+
+    const container = el('main', {}, header);
+    parentElement.appendChild(container);
+}

@@ -1,7 +1,7 @@
 import { empty } from './lib/elements.js';
 import {
     renderDetails, renderFrontpage, searchAndRender,
-    renderCategory, renderCategoryBoxes
+    renderCategory, renderCategories, renderCategoryBoxes
 } from './lib/ui.js';
 
 /**
@@ -34,12 +34,12 @@ async function onSearch(e) {
  */
 function route() {
     const { search } = window.location;
-
     const qs = new URLSearchParams(search);
 
     const query = qs.get('query') ?? undefined;
     const id = qs.get('id');
     const category = qs.get('category');
+    const categories = qs.get('categories');
     const parentElement = document.body;
     empty(parentElement);
 
@@ -47,8 +47,8 @@ function route() {
         renderCategory(parentElement, category);
     } else if (id) {
         renderDetails(parentElement, id);
-        // } else if ('#') {
-        //    renderCategoryCatelog(parentElement, id);
+    } else if (categories) {
+        renderCategories(parentElement, id);
     } else {
         renderFrontpage(parentElement);
     }
