@@ -19,7 +19,7 @@
 - Ath til þess að fá ákveðna vöru til þess að birtast þarf að ýta á myndina á vörunni.
 - Ath við bættum við takka sem voru lýstir í verkefnalýsingunni en eru ekki samkvæmt fyrirmynd. 
 - Við notuðum **scss** til þess að skipuleggja útlitið á verkefninu.
-- Eftirfaraandi skipting var notuð fyrir scss:
+- Eftirfarandi skipting var notuð fyrir scss:
 - ...
 - Við erum með möppu sem heitir **scr** sem inniheldur allar js. skrárnar okkar.
 - index.js
