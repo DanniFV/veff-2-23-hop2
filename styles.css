@@ -38,25 +38,38 @@
     display: flex;
   }
 }
+@media (max-width: 900px) {
+  .kassar,
+  .boxes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 @media (max-width: 501px) {
+  .header .navigation {
+    flex-direction: column;
+    margin-bottom: 2rem;
+  }
+  .index-title {
+    text-align: center;
+  }
+  .kassar,
+  .boxes {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .result_textar {
+    display: flex;
+  }
   .header {
     text-align: center;
   }
   .index-title {
     padding: 0;
   }
-  .nav-top-right-index {
-    list-style-type: none;
-    display: list-item;
-    text-align: center;
-    padding: 1vw;
-    margin: 0;
-    gap: 1vw;
-  }
+  .nav-top-right-index,
   .nav-bottom-right-index {
     text-align: center;
     margin: 0;
-    padding: 1vw;
+    gap: 1vw;
   }
   .nav-top-right-index li {
     display: inline-block;
@@ -64,6 +77,9 @@
   }
   .nav-top-right-index li:nth-child(3) {
     display: block;
+  }
+  .vara img {
+    margin-bottom: var(--spacing);
   }
 }
 .vara {
@@ -172,7 +188,7 @@
 .boxes .box a {
   color: var(--color-black);
   text-decoration: none;
-  font-size: 3vw;
+  font-size: 52px;
 }
 
 .skoda_voruflokka {
@@ -219,7 +235,7 @@ img {
 
 .kassar .kassi img {
   height: 30vw;
-  object-fit: conver;
+  object-fit: cover;
 }
 
 .result__textar {
@@ -292,24 +308,14 @@ img {
   padding-bottom: 3px;
 }
 
-.takkar_forsida {
-  margin-top: 3rem;
-  display: flex;
-  margin-bottom: 3rem;
-}
-
-.takki_forsida {
-  margin-top: 2rem;
-  margin-right: var(--spacing);
-}
-
-.takki_forsida a {
+.takki_forsida a,
+.leitatakki {
   padding: calc(var(--spacing) * 0.5);
   color: var(--color-white);
   background-color: var(--color-black);
   text-decoration: none;
   text-align: center;
-  border-radius: 3px;
+  border-radius: 2px;
 }
 
 .takki_forsida:hover,
@@ -318,11 +324,18 @@ img {
   background-color: var(--color-white);
 }
 
+.takkar_forsida {
+  display: flex;
+  margin-bottom: 3rem;
+}
+
+.takki_forsida {
+  margin-right: var(--spacing);
+  border-radius: 3px;
+  margin-top: 3rem;
+}
+
 .leitatakki {
-  color: var(--color-white);
-  background-color: var(--color-black);
-  text-decoration: none;
-  text-align: center;
   margin-bottom: 1.5rem;
   margin-left: 1rem;
   border-radius: 3px;
