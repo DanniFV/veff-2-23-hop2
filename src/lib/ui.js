@@ -308,18 +308,20 @@ export async function renderCategories(parentElement, id) {
     } catch (error) {
         console.error(error);
     }
+    const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
 
-    let listi = el('section', { class: 'listi2' })
-    const boxes = await allCategories();
+    const categoryResponse = await allCategories();
+    const categoryContainer = el('section', { class: 'boxes' });
 
-    for (const hlutur of boxes) {
-        const category = el(
-            'div',
-            { class: "kassar" },
-            el('p', { class: 'kassi' }, el('a', { href: `?category=${hlutur.id}` }, `${hlutur.title}`))
+    for (const items of categoryResponse) {
+        categoryContainer.appendChild(
+            el(
+                'div',
+                { class: 'box' },
+                el('a', { href: `?category=${items.id}` }, items.title)
+            )
         );
-        listi.appendChild(category)
     }
-
-    parentElement.appendChild(listi)
+    const container = el('main', {}, heading, categoryContainer);
+    parentElement.appendChild(container);
 }
