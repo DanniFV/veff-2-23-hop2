@@ -1,0 +1,39 @@
+.takkar_forsida {
+    margin-top: 3rem;
+    display: flex;
+    margin-bottom: 3rem;
+}
+
+.takki_forsida {
+    margin-top: 2rem;
+    margin-right: var(--spacing);
+}
+
+.takki_forsida a {
+    padding: calc(var(--spacing) * 0.5);
+    color: var(--color-white);
+    background-color: var(--color-black);
+    text-decoration: none;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.takki_forsida:hover,
+.leitatakki:hover {
+    color: var(--color-black);
+    background-color: var(--color-white);
+}
+
+.leitatakki {
+
+    color: var(--color-white);
+    background-color: var(--color-black);
+    text-decoration: none;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    margin-left: 1rem;
+    border-radius: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+
+}
