@@ -1,4 +1,4 @@
-import { fetchCategories, getVoru, searchProducts, fetchCategorySite } from './api.js';
+import { fetchCategories, getVoru, searchProducts, fetchCategorySite, allCategories } from './api.js';
 import { el } from './elements.js';
 
 // Set loading state
@@ -178,8 +178,7 @@ export async function renderFrontpage(parentElement, query = '') {
     // Render category section
     const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
     const takki = el('p', { class: 'takki_forsida' },
-        el('a', { href: '/' }, 'Skoða alla flokkana'));
-    takki.addEventListener('click', getVoru);
+        el('a', { href: '?categories=categories' }, 'Skoða alla flokkana'));
     parentElement.appendChild(heading);
     parentElement.appendChild(takki);
     const categoryBoxes = await renderCategoryBoxes(); // Note the 'await' here
@@ -207,9 +206,6 @@ export async function renderCategoryCatelog(parentElement) {
 // Render síðu 2 fyrir ákveðið product
 export async function renderCategory(parentElement, id, query = '') {
     // Render nav
-    if (id == 'all') {
-        render
-    }
     try {
         const navigation = await renderNavigation();
         parentElement.appendChild(navigation);
@@ -306,24 +302,24 @@ export async function renderDetails(parentElement, id, query) {
 
 //Síða fyrir öll gategories(kemur þegar er ýtt á Flokka)
 export async function renderCategories(parentElement, id) {
-    const header = el(
-        'header',
-        { class: 'header' },
-        el('nav', { class: 'navi' },
-            el('ul', { class: 'title' },
-                el('li', {},
-                    el('a', { href: '/', class: 'heim_linkur' },
-                        el('strong', { class: 'title' }, 'Vefforritunarbúðin')))),
-            el('div', { class: 'nav_haegri' },
-                el('ul', { class: 'nav_uppi' },
-                    el('li', {}, el('a', { href: '/' }, 'Nýskrá')),
-                    el('li', {}, el('a', { href: '/' }, 'Innskrá')),
-                    el('li', {}, el('a', { href: '/' }, 'Karfa'))),
-                el('ul', { class: 'nav_nidri' },
-                    el('li', {}, el('a', { href: '/' }, 'Nýjar vörur')),
-                    el('li', {}, el('a', { href: `categories=all` }, 'Flokkar')))
-            )));
+    try {
+        const navigation = await renderNavigation();
+        parentElement.appendChild(navigation);
+    } catch (error) {
+        console.error(error);
+    }
 
-    const container = el('main', {}, header);
-    parentElement.appendChild(container);
+    let listi = el('section', { class: 'listi2' })
+    const boxes = await allCategories();
+
+    for (const hlutur of boxes) {
+        const category = el(
+            'div',
+            { class: "kassar" },
+            el('p', { class: 'kassi' }, el('a', { href: `?category=${hlutur.id}` }, `${hlutur.title}`))
+        );
+        listi.appendChild(category)
+    }
+
+    parentElement.appendChild(listi)
 }
