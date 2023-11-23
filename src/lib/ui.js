@@ -285,7 +285,7 @@ export async function renderDetails(parentElement, id, query) {
     // Render related products -Sigrún ef að hún spyr
     const meiraVorur = el('h1', { class: 'meira_ur' }, `Meira úr ${hlutur.category_title}`);
     parentElement.appendChild(meiraVorur)
-    const meiraVorurhlutir = await fetchCategorySite(`${hlutur.category_id}`);
+    const meiraVorurhlutir = await fetchCategorySite(`${hlutur.category_id}`, 3);
     const List = el('section', { class: 'kassar' });
     // Hérna er kóðinn fyrir div kassi
     for (const hlutur of meiraVorurhlutir) {
@@ -295,3 +295,7 @@ export async function renderDetails(parentElement, id, query) {
     parentElement.appendChild(List)
 }
 
+
+// Vantar að gera Vörulisti
+// Fyrir neðan vörur í vörulista skal vera hlekkur sem fer á forsíðu.
+// Ha? Fyrir neðan vörur skal vera hlekkur sem fer á vörulista með öllum vörum.
