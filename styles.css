@@ -90,7 +90,6 @@
   text-align: left;
   padding-right: var(--spacing);
   list-style: none;
-  margin-bottom: 0;
 }
 
 .nav-bottom-right-index {
@@ -99,6 +98,7 @@
   text-align: left;
   padding-right: var(--spacing);
   list-style: none;
+  margin-top: 0;
 }
 
 .header .navigation ul li a {

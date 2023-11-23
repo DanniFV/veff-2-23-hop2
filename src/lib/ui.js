@@ -1,4 +1,7 @@
-import { fetchCategories, getVoru, searchProducts, fetchCategorySite, allCategories } from './api.js';
+import {
+    fetchCategories, getVoru,
+    searchProducts, fetchCategorySite, allCategories
+} from './api.js';
 import { el } from './elements.js';
 
 // Set loading state
@@ -60,14 +63,11 @@ export async function searchAndRender(parentElement, searchForm, query) {
         setNotLoading(mainElement, searchForm);
 
         if (!results) {
-            return console.error('Error fetching search results: Results are undefined.');
+            console.error('Error fetching search results: Results are undefined.');
         }
-
-        return results;
     } catch (error) {
         console.error('Error fetching search results: ', error);
         setNotLoading(mainElement, searchForm);
-        return;
     }
 }
 // Render kassi div
@@ -180,27 +180,12 @@ export async function renderFrontpage(parentElement, query = '') {
     const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
     const takki = el('p', { class: 'takki_forsida' },
         el('a', { href: '?categories=categories' }, 'Skoða alla flokkana'));
+    const takki2 = el('p', { class: 'takki_forsida' },
+        el('a', { href: '?products=products' }, 'Skoða vörulista'));
     parentElement.appendChild(heading);
     parentElement.appendChild(takki);
     const categoryBoxes = await renderCategoryBoxes(); // Note the 'await' here
-    const container = el('main', {}, nyjarvorur, List, takki, heading, categoryBoxes);
-    parentElement.appendChild(container);
-}
-
-// Render category content page síðan sem sér um flokkana
-export async function renderCategorypage(parentElement) {
-    const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
-    const categoryBoxes = await renderCategoryBoxes(); // Note the 'await' here
-
-    const container = el('main', {}, heading, categoryBoxes);
-    parentElement.appendChild(container);
-}
-// Render síðu 1 fyrir þegar að "flokkar" er ýtt á þá fer það hingað og renderar sá síðu
-export async function renderCategoryCatelog(parentElement) {
-    const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
-    const categoryBoxes = await renderCategoryBoxes(); // Note the 'await' here
-
-    const container = el('main', {}, heading, categoryBoxes);
+    const container = el('main', {}, nyjarvorur, List, takki, takki2, heading, categoryBoxes);
     parentElement.appendChild(container);
 }
 
@@ -213,16 +198,6 @@ export async function renderCategory(parentElement, id, query = '') {
     } catch (error) {
         console.error(error);
     }
-    const fetchCategoryTitle = await fetchCategorySite(id);
-    let selectedCategory = [];
-
-    for (const box of fetchCategoryTitle) {
-        if (box.id === id) {
-            selectedCategory = box;
-        }
-    }
-
-    // const nafn = el('h2', {}, categorySiteData[id].category_title);
 
     const searchContainer = el(
         'form',
@@ -233,6 +208,11 @@ export async function renderCategory(parentElement, id, query = '') {
 
     );
 
+    const backButton = el(
+        'div',
+        { class: 'takki_forsida' },
+        el('a', { href: '/' }, 'Til baka á forsíðu')
+    );
 
     const List = el('section', { class: 'kassar' });
     const searchResults2 = await fetchCategorySite(id);
@@ -242,14 +222,14 @@ export async function renderCategory(parentElement, id, query = '') {
         const resultEl = renderKassiDiv(hlutur);
         List.appendChild(resultEl);
     }
-    // Hérna er ég að reyna að láta titil fyrir leita/catergory síðuna virka -Sigrún ef hún spyr
+    // Hérna er titill fyrir leita/catergory síðuna 
     const nafnASerCategory = el('h2', { class: 'nafnASerFlokk' }, `${searchResults2[0].category_title}`)
-    const container = el('main', {}, nafnASerCategory, searchContainer, List);
+    const container = el('main', {}, nafnASerCategory, searchContainer, List, backButton);
     parentElement.appendChild(container)
 }
 
 // renderDetails á að búa til síðu fyrir sérstaka vöru
-export async function renderDetails(parentElement, id, query) {
+export async function renderDetails(parentElement, id) {
     const container = el('main', {});
 
     setLoading(container);
@@ -282,26 +262,24 @@ export async function renderDetails(parentElement, id, query) {
         el('div', { class: 'result__image' }, el('img', { src: hlutur.image, alt: hlutur.title }))
     )
     parentElement.appendChild(voruElement);
-    // Render related products -Sigrún ef að hún spyr
+    // Render related products 
     const meiraVorur = el('h1', { class: 'meira_ur' }, `Meira úr ${hlutur.category_title}`);
     parentElement.appendChild(meiraVorur)
     const meiraVorurhlutir = await fetchCategorySite(`${hlutur.category_id}`, 3);
     const List = el('section', { class: 'kassar' });
     // Hérna er kóðinn fyrir div kassi
-    for (const hlutur of meiraVorurhlutir) {
-        const resultEl = renderKassiDiv(hlutur);
+    for (const hluturiMeira of meiraVorurhlutir) {
+        const resultEl = renderKassiDiv(hluturiMeira);
         List.appendChild(resultEl);
     }
     parentElement.appendChild(List)
 }
 
-
-// Vantar að gera Vörulisti
 // Fyrir neðan vörur í vörulista skal vera hlekkur sem fer á forsíðu.
 // Ha? Fyrir neðan vörur skal vera hlekkur sem fer á vörulista með öllum vörum.
 
 
-//Síða fyrir öll categories(kemur þegar er ýtt á Flokka)
+// Síða fyrir öll categories(kemur þegar er ýtt á Flokka)
 export async function renderCategories(parentElement) {
     try {
         const navigation = await renderNavigation();
@@ -323,7 +301,13 @@ export async function renderCategories(parentElement) {
             )
         );
     }
-    const container = el('main', {}, heading, categoryContainer);
+    const backButton = el(
+        'div',
+        { class: 'takki_forsida' },
+        el('a', { href: '/' }, 'Til baka á forsíðu')
+    );
+
+    const container = el('main', {}, heading, categoryContainer, backButton);
     parentElement.appendChild(container);
 }
 
@@ -339,7 +323,7 @@ export async function renderAllProducts(parentElement, query = '') {
     const searchResults = await searchProducts(query, 100);
 
     // Render new products section
-    const nyjarvorur = el('h1', { class: 'nyjarvorur_title' }, 'Nýjar vörur');
+    const nyjarvorur = el('h1', { class: 'allarvorur_title' }, 'Allar vörur');
 
     // Hérna er kóðinn fyrir div kassi
     for (const hlutur of searchResults) {
@@ -347,7 +331,11 @@ export async function renderAllProducts(parentElement, query = '') {
         List.appendChild(resultEl);
     }
 
-    parentElement.appendChild(List);
-    const container = el('main', {}, nyjarvorur, List);
+    const backButton = el(
+        'div',
+        { class: 'takki_forsida' },
+        el('a', { href: '/' }, 'Til baka á forsíðu')
+    );
+    const container = el('main', {}, nyjarvorur, List, backButton);
     parentElement.appendChild(container);
 }
