@@ -35,7 +35,7 @@ inniheldur öll föllin okkar til þess að birta ákveðnar síður
 - element.js
 inniheldur fall sem býr til element (el) í staðinn fyrir að endurtaka sömu skipanirnar.
 
-- Verkefnið inniheldur `package.json` og `package-lock.json` sem innihalda öll notuð tól sem voru notuð.
+### Verkefnið inniheldur `package.json` og `package-lock.json` sem innihalda öll notuð tól sem voru notuð.
 
 
 ## Verkefnalýsing
