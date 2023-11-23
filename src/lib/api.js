@@ -26,17 +26,12 @@ export async function searchProducts(query, limit = 10) {
     const url = new URL('products', API_URL);
     url.searchParams.set('items', query);
     url.searchParams.set('limit', limit);
-
-    console.log(url);
-
     const json = await fetchDataFromAPI(url);
     return json ? json.items : null;
 }
-// Fallið sem sér um að búa til url fyrir sérstaka síðu
+// Fallið sem sér um að búa til url fyrir sérstaka vöru
 export async function getVoru(id) {
     const url = new URL(`products/${id}`, API_URL);
-    console.log(url);
-
     const json = await fetchDataFromAPI(url);
     return json;
 }
@@ -45,9 +40,6 @@ export async function fetchCategories(query, limit = 13) {
     const url = new URL('categories', API_URL);
     url.searchParams.set('items', query);
     url.searchParams.set('limit', limit);
-
-    console.log(url);
-
     const json = await fetchDataFromAPI(url);
     return json ? json.items : null;
 }
@@ -56,9 +48,6 @@ export async function fetchCategories(query, limit = 13) {
 export async function fetchCategorySite(id) {
     const url = new URL(`products?category=${id}`, API_URL);
     // url.searchParams.set('limit', limit);
-
-    console.log(url);
-
     const json = await fetchDataFromAPI(url);
     return json ? json.items : null;
 }
