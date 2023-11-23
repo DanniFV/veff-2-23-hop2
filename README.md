@@ -18,14 +18,14 @@
 ## Létt lýsing á uppsetningu verkefnis
 - Ath til þess að fá ákveðna vöru til þess að birtast þarf að ýta á myndina á vörunni.
 - Ath við bættum við takka sem voru lýstir í verkefnalýsingunni en eru ekki samkvæmt fyrirmynd. 
-- Við notuðum **scss** til þess að skipuleggja útlitið á verkefninu.
+### Við notuðum **scss** til þess að skipuleggja útlitið á verkefninu.
 - Eftirfarandi skipting var notuð fyrir scss:
 - boxes.scss: allir stílar fyrir klasa boxes
 - config.scss: stillingar fyrir hreinri kóða
 - media.scss: sumar media stillingar en ekki allar
 - takkar.scss: útlit fyrir takkana
 - vara.scss: stillingar fyrir fyrir einstaka vöru síðuna
-- Við erum með möppu sem heitir **scr** sem inniheldur allar js. skrárnar okkar.
+### Við erum með möppu sem heitir **scr** sem inniheldur allar js. skrárnar okkar.
 - index.js
  route sér um að skipta á milli síða
 - api.js
