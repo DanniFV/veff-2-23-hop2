@@ -17,6 +17,71 @@
   --vertical-space: calc(var(--gutter));
 }
 
+@media (max-width: 900px) {
+  .kassar,
+  .boxes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 501px) {
+  .header .navigation {
+    flex-direction: column;
+  }
+  .index-title {
+    text-align: center;
+  }
+  .kassar,
+  .boxes {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .result_textar {
+    display: flex;
+  }
+}
+@media (max-width: 900px) {
+  .kassar,
+  .boxes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 501px) {
+  .header .navigation {
+    flex-direction: column;
+    margin-bottom: 2rem;
+  }
+  .index-title {
+    text-align: center;
+  }
+  .kassar,
+  .boxes {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .result_textar {
+    display: flex;
+  }
+  .header {
+    text-align: center;
+  }
+  .index-title {
+    padding: 0;
+  }
+  .nav-top-right-index,
+  .nav-bottom-right-index {
+    text-align: center;
+    margin: 0;
+    gap: 1vw;
+  }
+  .nav-top-right-index li {
+    display: inline-block;
+    margin-right: 5px;
+  }
+  .nav-top-right-index li:nth-child(3) {
+    display: block;
+  }
+  .vara img {
+    margin-bottom: var(--spacing);
+  }
+}
 .vara {
   display: flex;
   flex-direction: row-reverse;
@@ -107,34 +172,6 @@
   text-decoration: none;
 }
 
-@media (max-width: 500px) {
-  .header {
-    text-align: center;
-  }
-  .index-title {
-    padding: 0;
-  }
-  .nav-top-right-index {
-    list-style-type: none;
-    display: list-item;
-    text-align: center;
-    padding: 1vw;
-    margin: 0;
-    gap: 1vw;
-  }
-  .nav-bottom-right-index {
-    text-align: center;
-    margin: 0;
-    padding: 1vw;
-  }
-  .nav-top-right-index li {
-    display: inline-block;
-    margin-right: 5px;
-  }
-  .nav-top-right-index li:nth-child(3) {
-    display: block;
-  }
-}
 .boxes {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -151,7 +188,7 @@
 .boxes .box a {
   color: var(--color-black);
   text-decoration: none;
-  font-size: 3vw;
+  font-size: 52px;
 }
 
 .skoda_voruflokka {
@@ -198,7 +235,7 @@ img {
 
 .kassar .kassi img {
   height: 30vw;
-  object-fit: conver;
+  object-fit: cover;
 }
 
 .result__textar {
@@ -264,6 +301,41 @@ img {
   background-color: var(--color-black);
   text-decoration: none;
   text-align: center;
+  margin-bottom: 1.5rem;
+  margin-left: 1rem;
+  border-radius: 3px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.takki_forsida a,
+.leitatakki {
+  padding: calc(var(--spacing) * 0.5);
+  color: var(--color-white);
+  background-color: var(--color-black);
+  text-decoration: none;
+  text-align: center;
+  border-radius: 2px;
+}
+
+.takki_forsida:hover,
+.leitatakki:hover {
+  color: var(--color-black);
+  background-color: var(--color-white);
+}
+
+.takkar_forsida {
+  display: flex;
+  margin-bottom: 3rem;
+}
+
+.takki_forsida {
+  margin-right: var(--spacing);
+  border-radius: 3px;
+  margin-top: 3rem;
+}
+
+.leitatakki {
   margin-bottom: 1.5rem;
   margin-left: 1rem;
   border-radius: 3px;

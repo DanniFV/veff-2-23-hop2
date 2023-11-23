@@ -127,8 +127,7 @@ export async function renderNavigation() {
                 el(
                     'ul',
                     { class: 'nav-bottom-right-index' },
-                    el('li', {}, el('a', { href: '/' }, 'Nýjar vörur')),
-                    el('li', {}, el('a', { href: '?products=products' }, 'Vörulisti')),
+                    el('li', {}, el('a', { href: '?products=products' }, 'Nýjar vörur')),
                     el('li', {}, el('a', { href: '?categories=categories' }, 'Flokkar'))
                 )
             )
@@ -178,14 +177,18 @@ export async function renderFrontpage(parentElement, query = '') {
 
     // Render category section
     const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
-    const takki = el('p', { class: 'takki_forsida' },
-        el('a', { href: '?categories=categories' }, 'Skoða alla flokkana'));
-    const takki2 = el('p', { class: 'takki_forsida' },
-        el('a', { href: '?products=products' }, 'Skoða vörulista'));
-    parentElement.appendChild(heading);
-    parentElement.appendChild(takki);
+    const takkar_forsida = el(
+        'div',
+        { class: 'takkar_forsida' },
+        el('p', { class: 'takki_forsida' },
+            el('a', { href: '?categories=categories' }, 'Skoða alla flokkana')
+        ),
+        el('p', { class: 'takki_forsida' },
+            el('a', { href: '?products=products' }, 'Skoða vörulista')
+        )
+    );
     const categoryBoxes = await renderCategoryBoxes(); // Note the 'await' here
-    const container = el('main', {}, nyjarvorur, List, takki, takki2, heading, categoryBoxes);
+    const container = el('main', {}, nyjarvorur, List, takkar_forsida, heading, categoryBoxes);
     parentElement.appendChild(container);
 }
 
@@ -230,11 +233,16 @@ export async function renderCategory(parentElement, id, query = '') {
 
 // renderDetails á að búa til síðu fyrir sérstaka vöru
 export async function renderDetails(parentElement, id) {
-    const container = el('main', {});
+    const mainElement = el('main', {});
 
-    setLoading(container);
+    // Set loading
+    setLoading(mainElement);
+
     const hlutur = await getVoru(id);
-    setNotLoading(container);
+
+    // Set not loading
+    setNotLoading(mainElement);
+
     try {
         const navigation = await renderNavigation();
         parentElement.appendChild(navigation);
@@ -242,12 +250,14 @@ export async function renderDetails(parentElement, id) {
         console.error(error);
     }
 
-    // Check for error in fetching data
+    // Error fetching data
     if (!hlutur) {
-        container.appendChild(el('p', {}, 'Villa við að sækja gögn um vöru!'));
+        mainElement.appendChild(el('p', {}, 'Villa við að sækja gögn um vöru!'));
+        parentElement.appendChild(mainElement);
         return;
     }
 
+    // Render product details
     const voruElement = el(
         'div',
         { class: 'vara' },
@@ -260,23 +270,28 @@ export async function renderDetails(parentElement, id) {
             el('p', { class: 'description' }, hlutur.description)
         ),
         el('div', { class: 'result__image' }, el('img', { src: hlutur.image, alt: hlutur.title }))
-    )
-    parentElement.appendChild(voruElement);
-    // Render related products 
+    );
+
+    mainElement.appendChild(voruElement);
+
+    // Render related products
     const meiraVorur = el('h1', { class: 'meira_ur' }, `Meira úr ${hlutur.category_title}`);
-    parentElement.appendChild(meiraVorur)
+    mainElement.appendChild(meiraVorur);
+
     const meiraVorurhlutir = await fetchCategorySite(`${hlutur.category_id}`, 3);
     const List = el('section', { class: 'kassar' });
-    // Hérna er kóðinn fyrir div kassi
+
+    // Render div
     for (const hluturiMeira of meiraVorurhlutir) {
         const resultEl = renderKassiDiv(hluturiMeira);
         List.appendChild(resultEl);
     }
-    parentElement.appendChild(List)
+
+    mainElement.appendChild(List);
+    parentElement.appendChild(mainElement);
 }
 
-// Fyrir neðan vörur í vörulista skal vera hlekkur sem fer á forsíðu.
-// Ha? Fyrir neðan vörur skal vera hlekkur sem fer á vörulista með öllum vörum.
+
 
 
 // Síða fyrir öll categories(kemur þegar er ýtt á Flokka)
