@@ -11,13 +11,26 @@
 ### hi: mvo3@hi.is
 
 ## Hvernig á að keyra verkefnið
+  - `npm run sass`
   - `npm run dev`
-  - `npm run lint` skal vera til staðar og keyra eslint og stylelint
+  - `npm run lint`
 
 ## Létt lýsing á uppsetningu verkefnis
-- , hvernig því er skipt í möppur, hvernig CSS/Sass er skipulagt og fleira sem á við
+- Ath til þess að fá ákveðna vöru til þess að birtast þarf að ýta á myndina á vörunni.
+- Við notuðum **scss** til þess að skipuleggja útlitið á verkefninu.
+    -Eftirfaraandi skipting var notuð:
+    -...
+  -Við erum með möppu sem heitir **scr** sem inniheldur allar js. skrárnar okkar.
+  -index.js
+    -route sér um að skipta á milli síða
+  -api.js
+    - sér um að búa til rétta url fyrir hvert fall
+  -ui.js
+    -inniheldur öll föllin okkar til þess að birta ákveðnar síður
+  -element.js
+    -inniheldur fall sem býr til element (el) í staðinn fyrir að endurtaka sömu skipanirnar.
 
-- Verkefnið inniheldur `package.json` og `package-lock.json` sem innihalda öll notuð tól.
+- Verkefnið inniheldur `package.json` og `package-lock.json` sem innihalda öll notuð tól sem voru notuð.
 
 
 ## Verkefnalýsing
@@ -73,11 +86,9 @@ Fyrir neðan vöru skal birta þrjár sambærilegar vörur með því að kalla 
 
 ### Valin virkni
 
-Aukalega skal útfæra eitt af eftirfarandi:
+Við völdum eftirfarandi:
 
 - Stuðningar við flokka: nota `/categories` til að birta flokka á forsíðu og `/products?category={id}` til að birta vörur á flokkasíðu.
-- Stuðningur við síðuflettingu: nota `/products?offset={offset}&limit={limit}` til að birta vörur á síðu og hafa síðuflettingu á vörulistasíðu.
-- Stuðningur við leit: með því að nota `/products?search={query}` og leita þannig í vörum, birta niðurstöður eða ef engar niðurstöður. Geyma skal leit í URL svo hægt sé að leita aftur.
 
 ### Slóðir
 
