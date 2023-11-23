@@ -18,4 +18,21 @@
 
   /* Bil á milli „stærri“ eininga (header, efnisbox, footer) */
   --vertical-space: calc(var(--gutter));
+
+  --font-family-base: "Lota", Helvetica, Arial, sans-serif;
+  --font-family-heading: "Lota", Georgia, serif;
+}
+
+@font-face {
+  font-family: "Lota";
+  font-style: normal;
+  font-display: swap;
+  src: url(../fonts/Lato-Regular.ttf) format("woff");
+}
+
+@font-face {
+  font-family: "Lota-Bold";
+  font-style: normal;
+  font-display: swap;
+  src: url(../fonts/Lato-Bold.ttf) format("woff");
 }
