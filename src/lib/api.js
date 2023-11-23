@@ -44,7 +44,7 @@ export async function fetchCategories(query, limit = 13) {
     return json ? json.items : null;
 }
 
-// Fallið sem sér um að sækja url fyrir products/category síðuna. Hjálp
+// Fallið sem sér um að sækja url fyrir products/category síðuna
 export async function fetchCategorySite(id, limit = 20) {
     const url = new URL(`products?category=${id}`, API_URL);
     url.searchParams.set('limit', limit);
@@ -52,7 +52,7 @@ export async function fetchCategorySite(id, limit = 20) {
     return json ? json.items : null;
 }
 export async function allCategories(query, limit = 13) {
-    const url = new URL(`categories`, API_URL);
+    const url = new URL('categories', API_URL);
     url.searchParams.set('items', query);
     url.searchParams.set('limit', limit);
     const json = await fetchDataFromAPI(url);
