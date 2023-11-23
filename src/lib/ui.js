@@ -242,9 +242,8 @@ export async function renderCategory(parentElement, id, query = '') {
         const resultEl = renderKassiDiv(hlutur);
         List.appendChild(resultEl);
     }
-    // Hérna er ég að reyna að láta titil fyrir leita/catergory síðuna virka Hjálp
-    const hlutur = await fetchCategorySite(id);
-    const nafnASerCategory = el('h2', { class: 'nafnASerFlokk' }, `${hlutur.category_title}`)
+    // Hérna er ég að reyna að láta titil fyrir leita/catergory síðuna virka -Sigrún ef hún spyr
+    const nafnASerCategory = el('h2', { class: 'nafnASerFlokk' }, `${searchResults2[0].category_title}`)
     const container = el('main', {}, nafnASerCategory, searchContainer, List);
     parentElement.appendChild(container)
 }
@@ -285,14 +284,18 @@ export async function renderDetails(parentElement, id, query) {
     parentElement.appendChild(voruElement);
     // Render related products
     const meiraVorur = el('h1', { class: 'meira_ur' }, `Meira úr ${hlutur.category_title}`);
-    const List = el('section', { class: 'kassar' });
-    const searchResults3 = await searchProducts(query, 6); // HJÁLP
+    // const List = el('section', { class: 'kassar' });
+    // const searchResults3 = await searchProducts(query, 6); // HJÁLP
     // Hérna er kóðinn fyrir div kassi
-    for (const hlutur of searchResults3) {
-        const resultEl = renderKassiDiv(hlutur);
-        List.appendChild(resultEl);
-    }
-    const container2 = el('main', {}, voruElement, meiraVorur, List);
-    parentElement.appendChild(container2)
+    // for (const hlutur of searchResults3) {
+    //    const resultEl = renderKassiDiv(hlutur);
+    //    List.appendChild(resultEl);
+    // }
+    // const container2 = el('main', {}, voruElement, meiraVorur, List);
+    // parentElement.appendChild(container2)
+    parentElement.appendChild(meiraVorur)
+    const varaid = el('h2', { class: 'title_voru' }, `${hlutur.category_id}`)
+    parentElement.appendChild(varaid)
+
 }
 
