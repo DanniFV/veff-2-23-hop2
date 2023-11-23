@@ -22,6 +22,7 @@
 - Eftirfarandi skipting var notuð fyrir scss:
 - boxes.scss: allir stílar fyrir klasa boxes
 - config.scss: stillingar fyrir hreinri kóða
+- global.scss: allt sem tengist letri
 - media.scss: sumar media stillingar en ekki allar
 - takkar.scss: útlit fyrir takkana
 - vara.scss: stillingar fyrir fyrir einstaka vöru síðuna
