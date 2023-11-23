@@ -128,6 +128,7 @@ export async function renderNavigation() {
                     'ul',
                     { class: 'nav-bottom-right-index' },
                     el('li', {}, el('a', { href: '/' }, 'Nýjar vörur')),
+                    el('li', {}, el('a', { href: '?products=products' }, 'Vörulisti')),
                     el('li', {}, el('a', { href: '?categories=categories' }, 'Flokkar'))
                 )
             )
@@ -300,8 +301,8 @@ export async function renderDetails(parentElement, id, query) {
 // Ha? Fyrir neðan vörur skal vera hlekkur sem fer á vörulista með öllum vörum.
 
 
-//Síða fyrir öll gategories(kemur þegar er ýtt á Flokka)
-export async function renderCategories(parentElement, id) {
+//Síða fyrir öll categories(kemur þegar er ýtt á Flokka)
+export async function renderCategories(parentElement) {
     try {
         const navigation = await renderNavigation();
         parentElement.appendChild(navigation);
@@ -323,5 +324,30 @@ export async function renderCategories(parentElement, id) {
         );
     }
     const container = el('main', {}, heading, categoryContainer);
+    parentElement.appendChild(container);
+}
+
+export async function renderAllProducts(parentElement, query = '') {
+    try {
+        const navigation = await renderNavigation();
+        parentElement.appendChild(navigation);
+    } catch (error) {
+        console.error(error);
+    }
+
+    const List = el('section', { class: 'kassar' });
+    const searchResults = await searchProducts(query, 100);
+
+    // Render new products section
+    const nyjarvorur = el('h1', { class: 'nyjarvorur_title' }, 'Nýjar vörur');
+
+    // Hérna er kóðinn fyrir div kassi
+    for (const hlutur of searchResults) {
+        const resultEl = renderKassiDiv(hlutur);
+        List.appendChild(resultEl);
+    }
+
+    parentElement.appendChild(List);
+    const container = el('main', {}, nyjarvorur, List);
     parentElement.appendChild(container);
 }

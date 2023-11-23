@@ -1,7 +1,7 @@
 import { empty } from './lib/elements.js';
 import {
     renderDetails, renderFrontpage, searchAndRender,
-    renderCategory, renderCategories, renderCategoryBoxes
+    renderCategory, renderCategories, renderCategoryBoxes, renderAllProducts
 } from './lib/ui.js';
 
 /**
@@ -39,6 +39,7 @@ function route() {
     const query = qs.get('query') ?? undefined;
     const id = qs.get('id');
     const category = qs.get('category');
+    const products = qs.get('products');
     const categories = qs.get('categories');
     const parentElement = document.body;
     empty(parentElement);
@@ -47,6 +48,8 @@ function route() {
         renderCategory(parentElement, category);
     } else if (id) {
         renderDetails(parentElement, id);
+    } else if (products) {
+        renderAllProducts(parentElement, id);
     } else if (categories) {
         renderCategories(parentElement, id);
     } else {
