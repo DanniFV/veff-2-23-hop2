@@ -15,6 +15,48 @@
   --offset: 20px;
   /* Bil á milli „stærri“ eininga (header, efnisbox, footer) */
   --vertical-space: calc(var(--gutter));
+  --font-family-base: "Lota", Helvetica, Arial, sans-serif;
+  --font-family-heading: "Lota", Georgia, serif;
+}
+
+@font-face {
+  font-family: "Lota";
+  font-style: normal;
+  font-display: swap;
+  src: url(../fonts/Lato-Regular.ttf) format("woff");
+}
+@font-face {
+  font-family: "Lota-Bold";
+  font-style: normal;
+  font-display: swap;
+  src: url(../fonts/Lato-Bold.ttf) format("woff");
+}
+/* Global Styles */
+html,
+input,
+select,
+button {
+  font-size: var(--font-base-body-px);
+  font-family: var(--font-family-base);
+}
+
+h1,
+h2,
+h3 {
+  margin-bottom: var(--spacing);
+  font-family: var(--font-family-heading);
+}
+
+p {
+  font-family: "Lota", Helvetica, Arial, sans-serif;
+  /* Your desired font stack */
+  font-size: 16px;
+}
+
+body,
+html {
+  font-family: "Lato", sans-serif;
+  font-size: 16px;
 }
 
 @media (max-width: 900px) {
