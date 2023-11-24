@@ -177,7 +177,7 @@ export async function renderFrontpage(parentElement, query = '') {
 
     // Render category section
     const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
-    const takkar_forsida = el(
+    const takkarForsida = el(
         'div',
         { class: 'takkar_forsida' },
         el('p', { class: 'takki_forsida' },
@@ -188,7 +188,7 @@ export async function renderFrontpage(parentElement, query = '') {
         )
     );
     const categoryBoxes = await renderCategoryBoxes(); // Note the 'await' here
-    const container = el('main', {}, nyjarvorur, List, takkar_forsida, heading, categoryBoxes);
+    const container = el('main', {}, nyjarvorur, List, takkarForsida, heading, categoryBoxes);
     parentElement.appendChild(container);
 }
 
@@ -236,9 +236,15 @@ export async function renderDetails(parentElement, id) {
     const mainElement = el('main', {});
 
     // Set loading
-    setLoading(mainElement);
-
-    const hlutur = await getVoru(id);
+    setLoading(parentElement);
+    let hlutur
+    try {
+        hlutur = await getVoru(id);
+    } catch (e) {
+        console.warn(e);
+    } finally {
+        setNotLoading(parentElement);
+    }
 
     // Set not loading
     setNotLoading(mainElement);
