@@ -311,7 +311,17 @@ export async function renderCategories(parentElement) {
     }
     const heading = el('h2', { class: 'skoda_voruflokka' }, 'Skoðaðu vöruflokkana okkar');
 
-    const categoryResponse = await allCategories();
+
+    setLoading(parentElement);
+    let categoryResponse;
+    try {
+        categoryResponse = await allCategories();
+    } catch (e) {
+        console.warn(e);
+    } finally {
+        // Set not loading
+        setNotLoading(parentElement);
+    }
     const categoryContainer = el('section', { class: 'boxes' });
 
     for (const items of categoryResponse) {
