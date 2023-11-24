@@ -236,9 +236,15 @@ export async function renderDetails(parentElement, id) {
     const mainElement = el('main', {});
 
     // Set loading
-    setLoading(mainElement);
-
-    const hlutur = await getVoru(id);
+    setLoading(parentElement);
+    let hlutur
+    try {
+        hlutur = await getVoru(id);
+    } catch (e) {
+        console.warn(e);
+    } finally {
+        setNotLoading(parentElement);
+    }
 
     // Set not loading
     setNotLoading(mainElement);

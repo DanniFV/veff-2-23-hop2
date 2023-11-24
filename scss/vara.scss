@@ -23,6 +23,12 @@
     margin-right: var(--spacing)
 }
 
+.loading {
+    margin-top: 10vw;
+    font-size: 32px;
+    text-align: center;
+}
+
 @media(max-width: 501px) {
     .vara {
         flex-direction: column-reverse;
