@@ -219,7 +219,16 @@ export async function renderCategory(parentElement, id, query = '') {
 
     const List = el('section', { class: 'kassar' });
 
-    const searchResults2 = await fetchCategorySite(id);
+    setLoading(parentElement);
+    let searchResults2;
+    try {
+        searchResults2 = await fetchCategorySite(id);
+    } catch (e) {
+        console.warn(e);
+    } finally {
+        // Set not loading
+        setNotLoading(parentElement);
+    }
 
     // Hérna er kóðinn fyrir div kassi
     for (const hlutur of searchResults2) {
