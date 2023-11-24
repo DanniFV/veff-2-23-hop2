@@ -54,3 +54,40 @@
     padding-right: var(--spacing);
     text-decoration: none;
 }
+
+@media(max-width: 500px) {
+
+    .header {
+        text-align: center;
+    }
+
+    .index-title {
+        padding: 0;
+    }
+
+    .nav-top-right-index {
+        list-style-type: none;
+        display: list-item;
+        text-align: center;
+        padding: 1vw;
+        margin: 0;
+        gap: 1vw;
+    }
+
+    .nav-bottom-right-index {
+        text-align: center;
+        margin: 0;
+        padding: 1vw;
+    }
+
+    .nav-top-right-index li {
+        display: inline-block;
+        margin-right: 5px;
+
+    }
+
+    .nav-top-right-index li:nth-child(3) {
+        display: block;
+
+    }
+}
