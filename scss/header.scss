@@ -61,6 +61,10 @@
         text-align: center;
     }
 
+    .header .navigation {
+        margin-bottom: 1rem;
+    }
+
     .index-title {
         padding: 0;
     }
@@ -69,9 +73,8 @@
         list-style-type: none;
         display: list-item;
         text-align: center;
-        padding: 1vw;
+        padding: 0;
         margin: 0;
-        gap: 1vw;
     }
 
     .nav-bottom-right-index {
@@ -83,6 +86,7 @@
     .nav-top-right-index li {
         display: inline-block;
         margin-right: 5px;
+        margin-bottom: 1em;
 
     }
 

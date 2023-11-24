@@ -223,6 +223,9 @@ html {
   .header {
     text-align: center;
   }
+  .header .navigation {
+    margin-bottom: 1rem;
+  }
   .index-title {
     padding: 0;
   }
@@ -230,9 +233,8 @@ html {
     list-style-type: none;
     display: list-item;
     text-align: center;
-    padding: 1vw;
+    padding: 0;
     margin: 0;
-    gap: 1vw;
   }
   .nav-bottom-right-index {
     text-align: center;
@@ -242,6 +244,7 @@ html {
   .nav-top-right-index li {
     display: inline-block;
     margin-right: 5px;
+    margin-bottom: 1em;
   }
   .nav-top-right-index li:nth-child(3) {
     display: block;
