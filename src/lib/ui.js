@@ -218,6 +218,7 @@ export async function renderCategory(parentElement, id, query = '') {
     );
 
     const List = el('section', { class: 'kassar' });
+
     const searchResults2 = await fetchCategorySite(id);
 
     // Hérna er kóðinn fyrir div kassi
@@ -332,6 +333,8 @@ export async function renderCategories(parentElement) {
     parentElement.appendChild(container);
 }
 
+
+// Síðan fyrir vörulistand sem sýnir allar 100 vörur
 export async function renderAllProducts(parentElement, query = '') {
     try {
         const navigation = await renderNavigation();
@@ -341,7 +344,17 @@ export async function renderAllProducts(parentElement, query = '') {
     }
 
     const List = el('section', { class: 'kassar' });
-    const searchResults = await searchProducts(query, 100);
+    // Set loading
+    setLoading(parentElement);
+    let searchResults;
+    try {
+        searchResults = await searchProducts(query, 101);
+    } catch (e) {
+        console.warn(e);
+    } finally {
+        // Set not loading
+        setNotLoading(parentElement);
+    }
 
     // Render new products section
     const nyjarvorur = el('h1', { class: 'allarvorur_title' }, 'Allar vörur');
@@ -357,6 +370,7 @@ export async function renderAllProducts(parentElement, query = '') {
         { class: 'takki_forsida' },
         el('a', { href: '/' }, 'Til baka á forsíðu')
     );
+    // Create container after loading
     const container = el('main', {}, nyjarvorur, List, backButton);
     parentElement.appendChild(container);
 }
