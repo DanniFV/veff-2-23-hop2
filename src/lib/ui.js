@@ -155,7 +155,17 @@ export async function renderCategoryBoxes() {
 // Render frontpage content
 export async function renderFrontpage(parentElement, query = '') {
     const List = el('section', { class: 'kassar' });
-    const searchResults = await searchProducts(query, 6);
+
+    setLoading(parentElement);
+    let searchResults;
+    try {
+        searchResults = await searchProducts(query, 6);
+    } catch (e) {
+        console.warn(e);
+    } finally {
+        // Set not loading
+        setNotLoading(parentElement);
+    }
 
     // Render new products section
     const nyjarvorur = el('h1', { class: 'nyjarvorur_title' }, 'Nýjar vörur');
